@@ -35,9 +35,13 @@ public class DriverController {
         return new ResponseUtil(200,"Ok",driverService.getAllDrivers());
     }
 
-    @GetMapping(path = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "{id}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil searchDriver(@PathVariable String id){
         return new ResponseUtil(200,"Ok",driverService.searchDriver(id));
+    }
+    @GetMapping(params = {"userName","password"},produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil searchDriverForLogin(@RequestParam String userName,String password){
+       return new ResponseUtil(200,"Ok",driverService.searchDriverForLog(userName,password));
     }
 
     @DeleteMapping(path = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)

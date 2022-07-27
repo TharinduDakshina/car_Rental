@@ -2,6 +2,7 @@ package lk.spring.service.impl;
 
 import lk.spring.dto.CustomerDTO;
 import lk.spring.entity.Customer;
+import lk.spring.entity.Driver;
 import lk.spring.repo.CustomerRepo;
 import lk.spring.service.CustomerService;
 import org.modelmapper.ModelMapper;
@@ -58,6 +59,17 @@ public class CustomerServiceImpl implements CustomerService {
             throw new RuntimeException("No Customer For " + id + " ..!");
         }
     }
+
+    @Override
+    public String searchCustomerForLog(String userName, String password) {
+        Customer byUserName = customerRepo.findByUserName(userName);
+        if (byUserName.getUserName()!=null) {
+            if (byUserName.getPassword()==password) {
+                return byUserName.getCustomerID();
+            }else throw new RuntimeException("Password invalided");
+        }else throw new RuntimeException("username is invalided");
+    }
+
 
     @Override
     public List<CustomerDTO> getAllCustomers() {

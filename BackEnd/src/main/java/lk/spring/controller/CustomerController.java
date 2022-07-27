@@ -39,6 +39,11 @@ public class CustomerController {
         return new ResponseUtil(200,"Ok",customerService.searchCustomer(id));
     }
 
+    @GetMapping(params = {"userName","password"},produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil searchCustomerForLogin(@RequestParam String userName,String password){
+        return new ResponseUtil(200,"Ok",customerService.searchCustomerForLog(userName,password));
+    }
+
     @DeleteMapping(path = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil deleteCustomer(@PathVariable String id){
         customerService.deleteCustomer(id);

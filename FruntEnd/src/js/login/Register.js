@@ -28,6 +28,10 @@ function genarateId(selectType) {
     return id;
 }
 
+function clearAll() {
+    $("#txtFName,#txtLName,#txtConfirmPassword,#txtEmail,#txtPassword").val("");
+}
+
 function saveCustomer() {
     let loginFName = $('#txtFName').val();
     let loginLName = $('#txtLName').val();
@@ -65,6 +69,7 @@ function saveCustomer() {
             success: function (res) {
                 if (res.code == 201) {
                     alert("Successfully Registration..");
+                    clearAll();
                 }else {
                     alert(res.message);
                 }
@@ -91,6 +96,7 @@ function saveCustomer() {
             success: function (res) {
                 if (res.code==201) {
                     alert("Successfully Registration..");
+                    clearAll();
                 }else {
                     alert(res.message);
                 }

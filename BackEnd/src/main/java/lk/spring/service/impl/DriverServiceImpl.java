@@ -5,6 +5,7 @@ import lk.spring.dto.DriverDTO;
 import lk.spring.entity.Driver;
 import lk.spring.repo.DriverRepo;
 import lk.spring.service.DriverService;
+import org.hibernate.criterion.Example;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,6 +60,17 @@ public class DriverServiceImpl implements DriverService {
         }else{
             throw new RuntimeException("No Driver For " + id + " ..!");
         }
+    }
+
+    @Override
+    public String searchDriverForLog(String userName, String password) {
+        Driver byUserName = driverRepo.findByUserName(userName);
+        if (byUserName.getUserName()!=null) {
+            if (byUserName.getPassword()==password) {
+                return byUserName.getDriverID();
+            }else throw new RuntimeException("Password invalided");
+        }else throw new RuntimeException("username is invalided");
+
     }
 
     @Override

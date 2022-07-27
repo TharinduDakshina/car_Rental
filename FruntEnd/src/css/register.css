@@ -50,3 +50,16 @@ body {
 #button:hover{
     background-color: #89b634;
 }
+#button2{
+    background-color: #a0601f;
+}
+
+#button2:hover{
+    background-color: #d2a329;
+}
+
+#button2>a{
+    font-size: 1.1em;
+    text-decoration: none;
+    color: white;
+}
