@@ -1,0 +1,52 @@
+.bgColor {
+    background-image: url("../../src/assets/img/backgroundcarlogin.jpg");
+    background-size: cover;
+    opacity: 85%;
+}
+
+.btnColor {
+    background-color: #f39c12;
+}
+
+body {
+    margin: 65px;
+}
+
+#btn_Register {
+    text-decoration: none;
+    color: white;
+}
+#circle {
+    width: 230px;
+    height: 230px;
+    line-height: 200px;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    text-align: center;
+    background-color: white;
+    font-size: 16px;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin: 0 auto 40px;
+}
+
+#regDropDown{
+    margin-bottom: 1rem;
+    height: 3vh;
+    width: 10vw;
+    border-radius: 41px;
+    color: #6e707e;
+    font-weight: 400;
+    line-height: 1.5;
+    background-color: #fff;
+    border: 1px solid #d1d3e2;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+#button{
+    background-color: #a0601f;
+}
+#button:hover{
+    background-color: #89b634;
+}
