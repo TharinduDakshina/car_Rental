@@ -24,7 +24,7 @@ public class DriverController {
         return new ResponseUtil(201,"Saved",null);
     }
 
-    @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(consumes = "application/json",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil updateDriver(@RequestBody DriverDTO driver){
         driverService.updateDriver(driver);
         return new ResponseUtil(200,"Updated",null);
@@ -40,8 +40,10 @@ public class DriverController {
         return new ResponseUtil(200,"Ok",driverService.searchDriver(id));
     }
     @GetMapping(params = {"userName","password"},produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseUtil searchDriverForLogin(@RequestParam String userName,String password){
-       return new ResponseUtil(200,"Ok",driverService.searchDriverForLog(userName,password));
+    public ResponseUtil searchDriverForLogin(@RequestParam("userName") String userName,@RequestParam("password") String password){
+        String s = driverService.searchDriverForLog(userName, password);
+        System.out.println(s);
+        return new ResponseUtil(200,s,"Ok");
     }
 
     @DeleteMapping(path = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)

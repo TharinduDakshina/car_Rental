@@ -64,9 +64,10 @@ public class CustomerServiceImpl implements CustomerService {
     public String searchCustomerForLog(String userName, String password) {
         Customer byUserName = customerRepo.findByUserName(userName);
         if (byUserName.getUserName()!=null) {
-            if (byUserName.getPassword()==password) {
+            return byUserName.getCustomerID();
+            /*if (byUserName.getPassword()==password) {
                 return byUserName.getCustomerID();
-            }else throw new RuntimeException("Password invalided");
+            }else throw new RuntimeException("Password invalided");*/
         }else throw new RuntimeException("username is invalided");
     }
 

@@ -27,10 +27,8 @@ public class DriverServiceImpl implements DriverService {
     @Override
     public void saveDriver(DriverDTO dto) {
         if (!driverRepo.existsById(dto.getDriverID())){
-            System.out.println("222222222222222222");
             driverRepo.save(mapper.map(dto, Driver.class));
         }else{
-            System.out.println("333333333333");
             throw new RuntimeException("Driver Already Exists! Try Again");
         }
     }
@@ -66,10 +64,18 @@ public class DriverServiceImpl implements DriverService {
     public String searchDriverForLog(String userName, String password) {
         Driver byUserName = driverRepo.findByUserName(userName);
         if (byUserName.getUserName()!=null) {
-            if (byUserName.getPassword()==password) {
-                return byUserName.getDriverID();
-            }else throw new RuntimeException("Password invalided");
-        }else throw new RuntimeException("username is invalided");
+            System.out.println(byUserName.getPassword());
+            System.out.println("-->"+password);
+            String id=byUserName.getDriverID();
+            return id;
+            /*if (byUserName.getPassword()==password) {
+
+            }else{
+                throw new RuntimeException("Password invalided");
+            }*/
+        }else{
+            throw new RuntimeException("username is invalided");
+        }
 
     }
 

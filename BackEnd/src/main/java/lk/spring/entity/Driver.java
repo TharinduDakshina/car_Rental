@@ -22,7 +22,7 @@ public class Driver {
     @Id
     private String driverID;
     private String name;
-    private int contactNo;
+    private String contact;
     private String nic;
     private String email;
     private String userName;
@@ -39,5 +39,15 @@ public class Driver {
         this.userName = userName;
         this.password = password;
         this.available = available;
+    }
+
+    public Driver(String driverID, String name, String contact, String nic, String email, String userName, String password) {
+        this.driverID = driverID;
+        this.name = name;
+        this.contact = contact;
+        this.nic = nic;
+        this.email = email;
+        this.userName = userName;
+        this.password = password;
     }
 }

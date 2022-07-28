@@ -1,104 +1,67 @@
-//Start Driver Validation Section
-function checkValidationDriverProfile() {
-
-    let driverProfileId = $('#DriverID').val();
-    let driverProfileName = $('#DriverName').val();
-    let driverProfileNic = $('#DriverNIC').val();
-    let driverProfileEmail = $('#DriverEmail').val();
-    let driverProfilePassword = $('#DriverPassword').val();
-    let driverProfileContact = $('#DriverContact').val();
-
-    if (driverProfileId != "") {
-        if (driverProfileName != "") {
-            if (driverProfileNic != "") {
-                if (driverProfileEmail != "") {
-                    if (driverProfileContact != "") {
-                        if (driverProfilePassword) {
-                            return true;
-                        } else {
-                            $('#DriverContact').css({
-                                'border': '2px #FF0000FF solid'
-                            });
-                            $('#DriverContact').focus();
-                            alert("Please Enter Password");
-                            return false;
-                        }
-                    } else {
-                        $('#DriverPassword').css({
-                            'border': '2px #FF0000FF solid'
-                        });
-                        $('#DriverPassword').focus();
-                        alert("Please Enter Contact");
-                        return false;
-                    }
-                } else {
-                    $('#DriverEmail').css({
-                        'border': '2px #FF0000FF solid'
-                    });
-                    $('#DriverEmail').focus();
-                    alert("Please Enter Email");
-                    return false;
-                }
-            } else {
-                $('#DriverNIC').css({
-                    'border': '2px #FF0000FF solid'
-                });
-                $('#DriverNIC').focus();
-                alert("Please Enter Nic");
-                return false;
+function loadDriver(driverId) {
+    $.ajax({
+        url:"http://localhost:8080/BackEnd_war/driver/"+driverId,
+        method: "GET",
+        success:function (res){
+            if (res.code==200){
+                $("#driverID").val(res.data.driverID);
+                $("#driverName").val(res.data.name);
+                $("#driverNic").val(res.data.nic);
+                $("#driverEmail").val(res.data.email);
+                $("#driverCont").val(res.data.contact);
+                $("#driverPw").val(res.data.password);
+                $("#driverUsername").val(res.data.userName);
             }
-        } else {
-            $('#DriverName').css({
-                'border': '2px #FF0000FF solid'
-            });
-            $('#DriverName').focus();
-            alert("Please Enter Name");
-            return false;
         }
-    } else {
-        $('#DriverID').css({
-            'border': '2px #FF0000FF solid'
-        });
-        $('#DriverID').focus();
-        alert("Please Enter id");
-        return false;
-    }
+    });
 }
+
+//Start Driver Validation Section
+
 //End Driver Validation Section
 
 //Start Driver Save Section
 $('#btnDriverUpdate').click(() => {
 
-    if (checkValidationDriverProfile()) {
-        let driverProfileId = $('#DriverID').val();
-        let driverProfileName = $('#DriverName').val();
-        let driverProfileNic = $('#DriverNIC').val();
-        let driverProfileEmail = $('#DriverEmail').val();
-        let driverProfilePassword = $('#DriverPassword').val();
-        let driverProfileContact = $('#DriverContact').val();
+    var driverProfileId = $("#driverID").val();
+    var driverProfileName = $("#driverName").val();
+    var driverProfileNic = $("#driverNic").val();
+    var driverProfileEmail = $("#driverEmail").val();
+    var driverProfilePassword = $("#driverPw").val();
+    var driverProfileContact = $("#driverCont").val();
+    var driverProfileUsername = $("#driverUsername").val();
 
+    console.log(driverProfileId);
+    console.log(driverProfileName);
+    console.log(driverProfileNic);
+    console.log(driverProfileEmail);
+    console.log(driverProfilePassword);
+    console.log(driverProfileContact);
+    console.log(driverProfileUsername);
         $.ajax({
+            url: "http://localhost:8080/BackEnd_war/driver",
             method: "PUT",
-            url: "http://localhost:8080/GMA/v2/driver",
             data: JSON.stringify({
-                "driverId": driverProfileId,
-                "driverName": driverProfileName,
-                "driverNIC": driverProfileNic,
-                "driverContact": driverProfileContact,
-                "driverEmail": driverProfileEmail,
-                "driverPassword":driverProfilePassword
+                "driverID": driverProfileId,
+                "name": driverProfileName,
+                "contact": driverProfileContact,
+                "nic": driverProfileNic,
+                "email": driverProfileEmail,
+                "userName": driverProfileUsername,
+                "password":driverProfilePassword
             }),
             dataType: 'Json',
-            contentType: "application/json; charset=utf-8",
+            contentType: "application/json",
             success: function (res) {
-                if (res.message == 'Success') {
-                    loadCustomers();
+                if (res.code == 200) {
+                    alert(res.message);
+                }else {
+                    alert(res.message);
                 }
             },
             error: function (ob, textStatus, error) {
             }
         });
-    }
 });
 //End Driver Save Section
 
