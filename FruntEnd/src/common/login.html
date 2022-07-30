@@ -63,8 +63,6 @@
     </div>
 </div>
 
-
-
 <div id="driver">
     <div class="navbar m-0 p-0" style="background-color: #6f16a0">
         <div class="m-0 p-0 ml-2"><img id="admin_logo" src="../assets/img/logo.png"></div>
@@ -243,7 +241,7 @@
         <!--Start Customer Page-->
         <div style="display: block" id="custProfilePage" class="p-1">
             <div class="container-fluid mt-1">
-                <h3 class="text-dark mt-3 mb-3" style="left: 42%; position: relative">My Profile</h3>
+                <h3 class="text-dark mt-3 mb-3" style="position: relative;left: 7%">My Profile</h3>
                 <div class="col-lg-12 p-0">
                     <div class="row">
                         <div class="col">
@@ -257,12 +255,12 @@
                                             <div class="col">
                                                 <div class="form-group">
                                                     <label><strong>ID</strong></label>
-                                                    <input id="custId"
+                                                    <input id="cstId"
                                                            class="form-control"
                                                            type="text"
-                                                           placeholder="C###"
+                                                           placeholder="C-00#"
                                                            name="id"
-                                                           onkeypress="searchCustomerProfile();"
+                                                           disabled
                                                     >
                                                 </div>
                                             </div>
@@ -270,7 +268,7 @@
                                             <div class="col">
                                                 <div class="form-group">
                                                     <label><strong>Name</strong></label>
-                                                    <input id="custName"
+                                                    <input id="cstName"
                                                            class="form-control"
                                                            type="text"
                                                            placeholder="user.name"
@@ -281,7 +279,7 @@
                                             <div class="col">
                                                 <div class="form-group">
                                                     <label><strong>Address</strong></label>
-                                                    <input id="custAddress"
+                                                    <input id="cstAddress"
                                                            class="form-control"
                                                            type="text"
                                                            placeholder="user.address"
@@ -291,31 +289,21 @@
 
                                             <div class="col">
                                                 <div class="form-group">
-                                                    <label><strong>Email</strong></label>
-                                                    <input id="custEmail"
-                                                           class="form-control"
-                                                           type="email"
-                                                           placeholder="user@example.com"
-                                                           name="email">
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <div class="form-row">
-                                            <div class="col">
-                                                <div class="form-group">
                                                     <label><strong>NIC</strong></label>
-                                                    <input id="custNic"
+                                                    <input id="cstNic"
                                                            class="form-control"
                                                            type="text"
                                                            placeholder="customer.nic"
                                                            name="nic">
                                                 </div>
                                             </div>
+                                        </div>
+                                        <div class="form-row">
+
                                             <div class="col">
                                                 <div class="form-group">
                                                     <label><strong>Driving License</strong></label>
-                                                    <input id="custDl"
+                                                    <input id="cstDl"
                                                            class="form-control"
                                                            type="text"
                                                            placeholder="user.driving license"
@@ -325,24 +313,47 @@
                                             <div class="col">
                                                 <div class="form-group">
                                                     <label><strong>Contact</strong></label>
-                                                    <input id="custContact"
+                                                    <input id="cstContact"
                                                            class="form-control"
                                                            type="text"
-                                                           placeholder="07# #######"
+                                                           placeholder="07* *******"
                                                            name="contact">
                                                 </div>
                                             </div>
                                             <div class="col">
                                                 <div class="form-group">
-                                                    <label><strong>Password</strong></label>
-                                                    <input id="custPassword"
+                                                    <label><strong>Username</strong></label>
+                                                    <input id="cstUsername"
                                                            class="form-control"
-                                                           type="password"
+                                                           type="text"
+                                                           placeholder="customer.nic"
+                                                    >
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="form-group">
+                                                    <label><strong>Password</strong></label>
+                                                    <input id="cstPassword"
+                                                           class="form-control"
+                                                           type="text"
                                                            placeholder="*****"
                                                            name="password">
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="form-row">
+                                            <div class="col">
+                                                <div class="form-group">
+                                                    <label><strong>Email</strong></label>
+                                                    <input id="cstEmail"
+                                                           class="form-control"
+                                                           type="email"
+                                                           placeholder="user@example.com"
+                                                           name="email">
+                                                </div>
+                                            </div>
+                                        </div>
+
                                         <div class="form-group mb-2">
                                             <button id="btnCustomerUpdate" class="btn  ml-2 btn-sm text-white" type="button"
                                                     style="background-color: #a08c16">

@@ -23,7 +23,7 @@ public class CustomerController {
         return new ResponseUtil(201,"Saved",null);
     }
 
-    @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(consumes = "application/json",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil updateCustomer(@RequestBody CustomerDTO customer){
         customerService.updateCustomer(customer);
         return new ResponseUtil(200,"Updated",null);
@@ -40,8 +40,8 @@ public class CustomerController {
     }
 
     @GetMapping(params = {"userName","password"},produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseUtil searchCustomerForLogin(@RequestParam String userName,String password){
-        return new ResponseUtil(200,customerService.searchCustomerForLog(userName,password),"ok");
+    public ResponseUtil searchCustomerForLogin(@RequestParam("userName") String userName,@RequestParam("password") String password){
+        return new ResponseUtil(200,"Ok",customerService.searchCustomerForLog(userName,password));
     }
 
     @DeleteMapping(path = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)

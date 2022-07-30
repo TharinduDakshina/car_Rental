@@ -9,7 +9,7 @@ public interface CustomerService {
     void updateCustomer(CustomerDTO dto);
     void deleteCustomer(String id);
     CustomerDTO searchCustomer(String id);
-    String searchCustomerForLog(String userName,String password);
+    CustomerDTO searchCustomerForLog(String userName,String password);
     List<CustomerDTO> getAllCustomers();
     CustomerDTO findLastCustomerById();
 }

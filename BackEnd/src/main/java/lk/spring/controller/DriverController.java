@@ -39,11 +39,10 @@ public class DriverController {
     public ResponseUtil searchDriver(@PathVariable String id){
         return new ResponseUtil(200,"Ok",driverService.searchDriver(id));
     }
+    //@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @GetMapping(params = {"userName","password"},produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil searchDriverForLogin(@RequestParam("userName") String userName,@RequestParam("password") String password){
-        String s = driverService.searchDriverForLog(userName, password);
-        System.out.println(s);
-        return new ResponseUtil(200,s,"Ok");
+        return new ResponseUtil(200,"Ok",driverService.searchDriverForLog(userName, password));
     }
 
     @DeleteMapping(path = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)

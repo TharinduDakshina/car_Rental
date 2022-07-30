@@ -1,4 +1,6 @@
+var loginDriverId;
 function loadDriver(driverId) {
+    loginDriverId=driverId;
     $.ajax({
         url:"http://localhost:8080/BackEnd_war/driver/"+driverId,
         method: "GET",
@@ -21,6 +23,8 @@ function loadDriver(driverId) {
 //End Driver Validation Section
 
 //Start Driver Save Section
+
+
 $('#btnDriverUpdate').click(() => {
 
     var driverProfileId = $("#driverID").val();
@@ -66,6 +70,7 @@ $('#btnDriverUpdate').click(() => {
 //End Driver Save Section
 
 $('#btnDriverProfile').click(function () {
+    loadDriver(loginDriverId);
     $('#driverProfile').css({
         'display': 'block'
     });

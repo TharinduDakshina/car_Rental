@@ -11,7 +11,7 @@ public interface DriverService {
     void updateDriver(DriverDTO dto);
     void deleteDriver(String id);
     DriverDTO searchDriver(String id);
-    String searchDriverForLog(String userName,String password);
+    DriverDTO searchDriverForLog(String userName,String password);
     List<DriverDTO> getAllDrivers();
     DriverDTO findLastDriverById();
 

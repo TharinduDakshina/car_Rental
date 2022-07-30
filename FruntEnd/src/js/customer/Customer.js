@@ -1,128 +1,270 @@
+var loginCustomerId;
+function loadCustomer(customerId){
+    loginCustomerId=customerId;
+    $.ajax({
+        url:"http://localhost:8080/BackEnd_war/customer/"+customerId,
+        method: "GET",
+        success:function (res){
+            if (res.code==200){
+                $("#cstId").val(res.data.customerID);
+                $("#cstName").val(res.data.name);
+                $("#cstAddress").val(res.data.address);
+                $("#cstEmail").val(res.data.email);
+                $("#cstNic").val(res.data.nicNo);
+                $("#cstDl").val(res.data.drivingLicenceNo);
+                $("#cstContact").val(res.data.contact);
+                $("#cstPassword").val(res.data.password);
+                $("#cstUsername").val(res.data.userName);
+            }
+        }
+    });
+}
+
+
 //Start Customer Validation Section
-function checkValidationCustomerProfile() {
+let regxCstName = /^[A-z ]{3,20}$/;
+let regxEmail = /^[a-zA-Z0-9.! #$%&'*+/=? ^_`{|}~-]+@[a-zA-Z0-9-.]+(?:\. [a-zA-Z0-9-]+)*$/;
+let regxCstAddress = /^[A-z 0-9]{3,50}$/;
+let regxCstNic = /^([0-9]{9}[v|V]|[0-9]{12})$/;
+let regxDrivingLicense = /^[A-z 0-9]{3,15}$/;
+let regxContact = /^[0-9]{10}$/;
+let regxUsername = /^[a-zA-Z0-9]([._-](?![._-])|[a-zA-Z0-9]){3,18}[a-zA-Z0-9]$/;
 
-    let cId = $('#custId').val();
-    let cName = $('#custName').val();
-    let cAdd = $('#custAddress').val();
-    let cEmail = $('#custEmail').val();
-    let cNic = $('#custNic').val();
-    let cDl = $('#custDl').val();
-    let cContact = $('#custContact').val();
-    let cPassword = $('#custPassword').val();
+$("#cstId,#cstName,#cstAddress,#cstEmail,#cstNic,#cstDl,#cstContact,#cstPassword,#cstUsername").on('keydown', function (eventOb) {
+    if (eventOb.key == "Tab") {
+        eventOb.preventDefault();
+    }
+});
 
-    if (cId != "") {
-        if (cName != "") {
-            if (cAdd != "") {
-                if (cEmail != "") {
-                    if (cNic != "") {
-                        if (cDl != "") {
-                            if (cContact != "") {
-                                if (cPassword) {
+
+$("#cstId,#cstName,#cstAddress,#cstEmail,#cstNic,#cstDl,#cstContact,#cstPassword,#cstUsername").on('blur', function () {
+    formValidCustomer();
+});
+
+function formValidCustomer() {
+    var fCstName = $("#cstName").val();
+    if (regxCstName.test(fCstName)) {
+        $("#cstName").css('border', '2px solid green');
+        var cstAddress = $("#cstAddress").val();
+        if (regxCstAddress.test(cstAddress)) {
+            $("#cstAddress").css('border', '2px solid green');
+            var cstNic = $("#cstNic").val();
+            if (regxCstNic.test(cstNic)) {
+                $("#cstNic").css('border', '2px solid green');
+                var cstDL = $("#cstDl").val();
+                if (regxDrivingLicense.test(cstDL)) {
+                    $("#cstDl").css('border', '2px solid green');
+                    var cstContact = $("#cstContact").val();
+                    if (regxContact.test(cstContact)) {
+                        $("#cstContact").css('border', '2px solid green');
+                        var cstUsername = $("#cstUsername").val();
+                        if (regxUsername.test(cstUsername)) {
+                            $("#cstUsername").css('border', '2px solid green');
+                           var cstPassword= $("#cstPassword").val();
+                            if (cstPassword!= "") {
+                                $("#cstPassword").css('border', '2px solid green');
+                                var cstEmail = $("#cstEmail").val();
+                                if (regxEmail.test(cstEmail)){
+                                    $("#cstEmail").css('border', '2px solid green');
                                     return true;
-                                } else {
-                                    $('#custPassword').css({
-                                        'border': '2px #FF0000FF solid'
-                                    });
-                                    $('#custPassword').focus();
-                                    alert("Please Enter Password");
+                                }else{
+                                    $("#cstEmail").css('border', '2px solid red');
                                     return false;
                                 }
-                            } else {
-                                $('#custContact').css({
-                                    'border': '2px #FF0000FF solid'
-                                });
-                                $('#custContact').focus();
-                                alert("Please Enter Contact");
+                            }else {
+                                $("#cstPassword").css('border', '2px solid red');
                                 return false;
                             }
-                        } else {
-                            $('#custDl').css({
-                                'border': '2px #FF0000FF solid'
-                            });
-                            $('#custDl').focus();
-                            alert("Please Enter Driver License");
+                        }else {
+                            $("#cstUsername").css('border', '2px solid red');
                             return false;
                         }
-                    } else {
-                        $('#custNic').css({
-                            'border': '2px #FF0000FF solid'
-                        });
-                        $('#custNic').focus();
-                        alert("Please Enter Nic");
+                    }else {
+                        $("#cstContact").css('border', '2px solid red');
                         return false;
                     }
+
                 } else {
-                    $('#custEmail').css({
-                        'border': '2px #FF0000FF solid'
-                    });
-                    $('#custEmail').focus();
-                    alert("Please Enter Email");
+                    $("#cstDl").css('border', '2px solid red');
                     return false;
                 }
             } else {
-                $('#custAddress').css({
-                    'border': '2px #FF0000FF solid'
-                });
-                $('#custAddress').focus();
-                alert("Please Enter Address");
+                $("#cstNic").css('border', '2px solid red');
                 return false;
             }
+
         } else {
-            $('#custName').css({
-                'border': '2px #FF0000FF solid'
-            });
-            $('#custName').focus();
-            alert("Please Enter Name");
+            $("#cstAddress").css('border', '2px solid red');
             return false;
         }
     } else {
-        $('#custId').css({
-            'border': '2px #FF0000FF solid'
-        });
-        $('#custId').focus();
-        alert("Please Enter Id");
+        $("#cstName").css('border', '2px solid red');
         return false;
+    }
+}
+
+$("#cstName").on('keyup', function (eventOb) {
+    setButtonCustomer();
+    if (eventOb.key == "Enter") {
+        checkIfValidCustomer();
+    }
+});
+
+$("#cstAddress").on('keyup', function (eventOb) {
+    setButtonCustomer();
+    if (eventOb.key == "Enter") {
+        checkIfValidCustomer();
+    }
+});
+
+$("#cstEmail").on('keyup', function (eventOb) {
+    setButtonCustomer();
+    if (eventOb.key == "Enter") {
+        checkIfValidCustomer();
+    }
+});
+
+$("#cstNic").on('keyup', function (eventOb) {
+    setButtonCustomer();
+    if (eventOb.key == "Enter") {
+        checkIfValidCustomer();
+    }
+});
+
+$("#cstDl").on('keyup', function (eventOb) {
+    setButtonCustomer();
+    if (eventOb.key == "Enter") {
+        checkIfValidCustomer();
+    }
+});
+
+$("#cstContact").on('keyup', function (eventOb) {
+    setButtonCustomer();
+    if (eventOb.key == "Enter") {
+        checkIfValidCustomer();
+    }
+});
+
+$("#cstPassword").on('keyup', function (eventOb) {
+    setButtonCustomer();
+    if (eventOb.key == "Enter") {
+        checkIfValidCustomer();
+    }
+});
+
+$("#cstUsername").on('keyup', function (eventOb) {
+    setButtonCustomer();
+    if (eventOb.key == "Enter") {
+        checkIfValidCustomer();
+    }
+});
+
+function checkIfValidCustomer() {
+    var cstName = $("#cstName").val();
+    if (regxCstName.test(cstName)) {
+        $("#cstAddress").focus();
+        var cstAddress = $("#cstAddress").val();
+        if (regxCstAddress.test(cstAddress)) {
+            $("#cstNic").focus();
+            var cstNic = $("#cstNic").val();
+            if (regxCstNic.test(cstNic)) {
+                $("#cstDl").focus();
+                var cstDL = $("#cstDl").val();
+                if (regxDrivingLicense.test(cstDL)) {
+                    $("#cstContact").focus();
+                    var cstContact = $("#cstContact").val();
+                    if (regxContact.test(cstContact)){
+                        $("#cstUsername").focus();
+                        var cstUsername = $("#cstUsername").val();
+                        if (regxUsername.test(cstUsername)){
+                            $("#cstPassword").focus();
+                            var cstPassword = $("#cstPassword").val();
+                            if (cstPassword!=""){
+                                $("#cstEmail").focus();
+                                var cstEmail = $("#cstEmail").val();
+                                if (regxEmail.test(cstEmail)){
+                                    let res = confirm("Do you really need to add this Customer..?");
+                                    if (res) {
+                                        // saveCustomer();
+                                        //clearAll();
+                                    }
+                                }else $("#cstEmail").focus();
+                            }else $("#cstPassword").focus();
+                        }else $("#cstUsername").focus();
+                    }else $("#cstContact").focus();
+                } else {
+                    $("#cstDl").focus();
+                }
+            } else {
+                $("#cstNic").focus();
+            }
+        } else {
+            $("#cstAddress").focus();
+        }
+    } else {
+        $("#cstName").focus();
+    }
+}
+
+function setButtonCustomer() {
+    let b = formValidCustomer();
+    if (b) {
+        $("#btnCustomerUpdate").attr('disabled', false);
+    } else {
+        $("#btnCustomerUpdate").attr('disabled', true);
     }
 }
 
 //End Customer Validation Section
 
 //Start Customer Save Section
-$('#btnCustSave').click(() => {
+$("#btnCustomerUpdate").click(() => {
 
-    if (checkValidationCustomerProfile()) {
-        let cId = $('#custId').val();
-        let cName = $('#custName').val();
-        let cAdd = $('#custAddress').val();
-        let cEmail = $('#custEmail').val();
-        let cNic = $('#custNic').val();
-        let cDl = $('#custDl').val();
-        let cContact = $('#custContact').val();
-        let cPassword = $('#custPassword').val();
+        let cId = $('#cstId').val();
+        let cName = $('#cstName').val();
+        let cAdd = $('#cstAddress').val();
+        let cEmail = $('#cstEmail').val();
+        let cNic = $('#cstNic').val();
+        let cDl = $('#cstDl').val();
+        let cContact = $('#cstContact').val();
+        let cPassword = $('#cstPassword').val();
+        let cUsername = $("#cstUsername").val();
+    console.log(cId);
+    console.log(cName);
+    console.log(cAdd);
+    console.log(cEmail);
+    console.log(cNic);
+    console.log(cDl);
+    console.log(cContact);
+    console.log(cPassword);
+    console.log(cUsername);
 
         $.ajax({
-            method: "POST",
-            url: "http://localhost:8080/GMA/v2/customer",
+            url: "http://localhost:8080/BackEnd_war/customer",
+            method: "PUT",
             data: JSON.stringify({
-                "customerId": cId,
-                "customerName": cName,
-                "customerAddress": cAdd,
-                "customerEmail": cEmail,
-                "customerNIC": cNic,
-                "customerDrivingLIC": cDl,
-                "customerContact": cContact,
-                "customerPassword": cPassword
+                "customerID": cId,
+                "name": cName,
+                "contact": cContact,
+                "address": cAdd,
+                "email": cEmail,
+                "nicNo": cNic,
+                "drivingLicenceNo": cDl,
+                "userName": cUsername,
+                "password": cPassword
             }),
             dataType: 'Json',
-            contentType: "application/json; charset=utf-8",
+            contentType: "application/json",
             success: function (res) {
-                if (res.message == 'Success') {
-                }
+                if (res.code == 200) {
+                    alert("Successfully Updated..");
+                }else alert(res.message);
             },
             error: function (ob, textStatus, error) {
+                alert(error);
             }
         });
-    }
+
 });
 //End Customer Save Section
 

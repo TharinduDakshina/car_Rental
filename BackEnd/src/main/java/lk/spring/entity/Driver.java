@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
-@NoArgsConstructor
+
 @Data
 @Entity
 @ToString
@@ -49,5 +49,8 @@ public class Driver {
         this.email = email;
         this.userName = userName;
         this.password = password;
+    }
+
+    public Driver() {
     }
 }

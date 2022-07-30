@@ -61,20 +61,15 @@ public class DriverServiceImpl implements DriverService {
     }
 
     @Override
-    public String searchDriverForLog(String userName, String password) {
+    public DriverDTO searchDriverForLog(String userName, String password) {
         Driver byUserName = driverRepo.findByUserName(userName);
-        if (byUserName.getUserName()!=null) {
-            System.out.println(byUserName.getPassword());
-            System.out.println("-->"+password);
-            String id=byUserName.getDriverID();
-            return id;
-            /*if (byUserName.getPassword()==password) {
-
-            }else{
-                throw new RuntimeException("Password invalided");
-            }*/
+        System.out.println("Search driver table");
+        System.out.println(byUserName);
+        if (byUserName!=null) {
+            return mapper.map(byUserName,DriverDTO.class);
         }else{
-            throw new RuntimeException("username is invalided");
+            System.out.println("driver table not found");
+            return null;
         }
 
     }
