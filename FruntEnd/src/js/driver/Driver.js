@@ -18,8 +18,160 @@ function loadDriver(driverId) {
     });
 }
 
-//Start Driver Validation Section
 
+//Start Driver Validation Section
+let regxDriverName = /^[A-z ]{3,20}$/;
+let regxDriverEmail = /^[a-zA-Z0-9.! #$%&'*+/=? ^_`{|}~-]+@[a-zA-Z0-9-.]+(?:\. [a-zA-Z0-9-]+)*$/;
+let regxDriverNic = /^([0-9]{9}[v|V]|[0-9]{12})$/;
+let regxDriverContact = /^[0-9]{10}$/;
+let regxDriverUsername = /^[a-zA-Z0-9]([._-](?![._-])|[a-zA-Z0-9]){3,18}[a-zA-Z0-9]$/;
+
+
+$("#driverID,#driverName,#driverNic,#driverEmail,#driverCont,#driverPw,#driverUsername").on('keydown', function (eventOb) {
+    if (eventOb.key == "Tab") {
+        eventOb.preventDefault();
+    }
+});
+
+$("#driverID,#driverName,#driverNic,#driverEmail,#driverCont,#driverPw,#driverUsername").on('blur', function () {
+    formValidDriver();
+});
+
+function formValidDriver() {
+    var fDriName = $("#driverName").val();
+    if (regxDriverName.test(fDriName)) {
+        $("#driverName").css('border', '2px solid #eaecf4');
+        var driverNic = $("#driverNic").val();
+        if (regxDriverNic.test(driverNic)) {
+            $("#driverNic").css('border', '2px solid #eaecf4');
+            var driverContact = $("#driverCont").val();
+            if (regxDriverContact.test(driverContact)) {
+                $("#driverCont").css('border', '2px solid #eaecf4');
+                var driverUsername = $("#driverUsername").val();
+                if (regxDriverUsername.test(driverUsername)) {
+                    $("#driverUsername").css('border', '2px solid #eaecf4');
+                    var driverPassword = $("#driverPw").val();
+                    if (driverPassword!="") {
+                        $("#driverPw").css('border', '2px solid #eaecf4');
+                        var driverMail = $("#driverEmail").val();
+                        if (regxDriverEmail.test(driverMail)) {
+                            $("#driverEmail").css('border', '2px solid #eaecf4');
+                            return true;
+                        }else{
+                            $("#driverEmail").css('border', '2px solid red');
+                            return false;
+                        }
+                    }else {
+                        $("#driverPw").css('border', '2px solid red');
+                        return false;
+                    }
+                }else {
+                    $("#driverUsername").css('border', '2px solid red');
+                    return false;
+                }
+            }else {
+                $("#driverCont").css('border', '2px solid red');
+                return false;
+            }
+        } else {
+            $("#driverNic").css('border', '2px solid red');
+            return false;
+        }
+    } else {
+        $("#driverName").css('border', '2px solid red');
+        return false;
+    }
+}
+
+$("#driverName").on('keyup', function (eventOb) {
+    setButtonDriver();
+    if (eventOb.key == "Enter") {
+        checkIfValidDriver();
+    }
+});
+
+$("#driverNic").on('keyup', function (eventOb) {
+    setButtonDriver();
+    if (eventOb.key == "Enter") {
+        checkIfValidDriver();
+    }
+});
+
+$("#driverEmail").on('keyup', function (eventOb) {
+    setButtonDriver();
+    if (eventOb.key == "Enter") {
+        checkIfValidDriver();
+    }
+});
+
+$("#driverCont").on('keyup', function (eventOb) {
+    setButtonDriver();
+    if (eventOb.key == "Enter") {
+        checkIfValidDriver();
+    }
+});
+
+$("#driverPw").on('keyup', function (eventOb) {
+    setButtonDriver();
+    if (eventOb.key == "Enter") {
+        checkIfValidDriver();
+    }
+});
+
+$("#driverUsername").on('keyup', function (eventOb) {
+    setButtonDriver();
+    if (eventOb.key == "Enter") {
+        checkIfValidDriver();
+    }
+});
+
+
+
+function checkIfValidDriver() {
+    var driverName = $("#driverName").val();
+    if (regxDriverName.test(driverName)) {
+        $("#driverNic").focus();
+        var driverNIC = $("#driverNic").val();
+        if (regxDriverNic.test(driverNIC)) {
+            $("#driverCont").focus();
+            var driverContact = $("#driverCont").val();
+            if (regxDriverContact.test(driverContact)) {
+                $("#driverUsername").focus();
+                var driverUsername = $("#driverUsername").val();
+                if (regxDriverUsername.test(driverUsername)) {
+                    $("#driverPw").focus();
+                    var driverPassword = $("#driverPw").val();
+                    if (driverPassword != "") {
+                        let res = confirm("Do you really need to add this Driver..?");
+                        if (res) {
+                            // saveCustomer();
+                            //clearAll();
+                        }
+                    } else {
+                        $("#driverPw").focus();
+                    }
+                } else {
+                    $("#driverUsername").focus();
+                }
+            } else {
+                $("#driverCont").focus();
+            }
+        }else {
+            $("#driverNic").focus();
+        }
+    }else {
+        $("#driverName").focus();
+    }
+}
+
+function setButtonDriver() {
+    let b = formValidDriver();
+    if (b) {
+        $("#btnDriverUpdate").attr('disabled', false);
+    } else {
+        $("#btnDriverUpdate").attr('disabled', true);
+    }
+}
 //End Driver Validation Section
 
 //Start Driver Save Section

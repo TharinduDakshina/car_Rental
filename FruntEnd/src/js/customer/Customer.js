@@ -44,28 +44,28 @@ $("#cstId,#cstName,#cstAddress,#cstEmail,#cstNic,#cstDl,#cstContact,#cstPassword
 function formValidCustomer() {
     var fCstName = $("#cstName").val();
     if (regxCstName.test(fCstName)) {
-        $("#cstName").css('border', '2px solid green');
+        $("#cstName").css('border', '2px solid #eaecf4');
         var cstAddress = $("#cstAddress").val();
         if (regxCstAddress.test(cstAddress)) {
-            $("#cstAddress").css('border', '2px solid green');
+            $("#cstAddress").css('border', '2px solid #eaecf4');
             var cstNic = $("#cstNic").val();
             if (regxCstNic.test(cstNic)) {
-                $("#cstNic").css('border', '2px solid green');
+                $("#cstNic").css('border', '2px solid #eaecf4');
                 var cstDL = $("#cstDl").val();
                 if (regxDrivingLicense.test(cstDL)) {
-                    $("#cstDl").css('border', '2px solid green');
+                    $("#cstDl").css('border', '2px solid #eaecf4');
                     var cstContact = $("#cstContact").val();
                     if (regxContact.test(cstContact)) {
-                        $("#cstContact").css('border', '2px solid green');
+                        $("#cstContact").css('border', '2px solid #eaecf4');
                         var cstUsername = $("#cstUsername").val();
                         if (regxUsername.test(cstUsername)) {
-                            $("#cstUsername").css('border', '2px solid green');
+                            $("#cstUsername").css('border', '2px solid #eaecf4');
                            var cstPassword= $("#cstPassword").val();
                             if (cstPassword!= "") {
-                                $("#cstPassword").css('border', '2px solid green');
+                                $("#cstPassword").css('border', '2px solid #eaecf4');
                                 var cstEmail = $("#cstEmail").val();
                                 if (regxEmail.test(cstEmail)){
-                                    $("#cstEmail").css('border', '2px solid green');
+                                    $("#cstEmail").css('border', '2px solid #eaecf4');
                                     return true;
                                 }else{
                                     $("#cstEmail").css('border', '2px solid red');
