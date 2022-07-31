@@ -1,7 +1,9 @@
 package lk.spring.service.impl;
 
 import lk.spring.dto.AdminDTO;
+import lk.spring.dto.DriverDTO;
 import lk.spring.entity.Admin;
+import lk.spring.entity.Driver;
 import lk.spring.repo.AdminRepo;
 import lk.spring.service.AdminService;
 import org.modelmapper.ModelMapper;
@@ -38,6 +40,20 @@ public class AdminServiceImpl implements AdminService {
         }else{
             throw new RuntimeException("No Admin found For " + id + " ..!");
         }
+    }
+
+    @Override
+    public AdminDTO searchAdminForLog(String username) {
+        Admin byUserName = adminRepo.findByUserName(username);
+        System.out.println("Search admin table");
+        System.out.println(byUserName);
+        if (byUserName!=null) {
+            return mapper.map(byUserName, AdminDTO.class);
+        }else{
+            System.out.println("admin table not found");
+            return null;
+        }
+
     }
 
     @Override

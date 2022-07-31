@@ -40,6 +40,13 @@ public class AdminController {
         return new ResponseUtil(200,"Ok",adminService.searchAdmin(id));
     }
 
+    @GetMapping(params = {"userName"},produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil searchAdminForLogin(@RequestParam("userName")String userName){
+        System.out.println(userName);
+        return new ResponseUtil(200,"Ok",adminService.searchAdminForLog(userName));
+    }
+
+
     @DeleteMapping(path = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil deleteAdmin(@PathVariable String id){
         adminService.deleteAdmin(id);
