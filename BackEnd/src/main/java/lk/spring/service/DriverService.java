@@ -14,6 +14,7 @@ public interface DriverService {
     DriverDTO searchDriverForLog(String userName,String password);
     List<DriverDTO> getAllDrivers();
     DriverDTO findLastDriverById();
+    int getDriverCount();
 
 
 }

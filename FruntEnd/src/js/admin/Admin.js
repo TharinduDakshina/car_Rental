@@ -26,7 +26,7 @@ $("#adminChangePitcher").click(function (){
 });
 */
 
-
+//$("#adminNameInHeader").val(adminUserName);
 
 $(document).ready(function () {
     getCustomerCount();
@@ -111,7 +111,7 @@ $('#btn_CustomerPage').click(function () {
     });
     loadAllCustomer();
     getLastCustomerId();
-    // getCustomerDLIC();
+    getCustomerDLIC();
 });
 
 $('#btn_CarPage').click(function () {
@@ -241,60 +241,65 @@ $('#btnAdminProfile').click(function () {
     });
 });
 
+
+
 function getAdmin(){
-    console.log("hello");
+
 }
+
+
+
 
 //get count customer
 function getCustomerCount() {
     $.ajax({
+        url: "http://localhost:8080/BackEnd_war/customer?customerCount=001",
         method: "get",
-        url: 'http://localhost:8080/GMA_Backend_war_exploded/v2/customer/customerCount',
         async: true,
         success: function (response) {
-            var resp = response.data;
-            console.log(resp);
-            $('#TxtCustomerCount').text(resp);
+            if (response.code== 200) {
+                $('#TxtCustomerCount').text(response.data);
+            }else {
+                alert(response.message);
+            }
         }
-
     });
 }
 
 function getCarCount() {
     $.ajax({
+        url: 'http://localhost:8080/BackEnd_war/car?carCount=001',
         method: "get",
-        url: 'http://localhost:8080/GMA_Backend_war_exploded/v2/car/carCount',
         async: true,
         success: function (response) {
-            var resp = response.data;
-            console.log(resp);
-            $('#txtCarCount').text(resp);
+            if (response.code==200) $('#txtCarCount').text(response.data);
+            else alert(response.message);
         }
 
     });
 }
 function getOrderCount() {
     $.ajax({
+        url: 'http://localhost:8080/BackEnd_war/booking?countBooking=001',
         method: "get",
-        url: 'http://localhost:8080/GMA_Backend_war_exploded/v2/booking/bookingCount',
         async: true,
         success: function (response) {
-            var resp = response.data;
-            console.log(resp);
-            $('#txtOrderCount').text(resp);
+            if (response.code == 200) {
+                $('#txtOrderCount').text(response.data);
+            }else alert(response.message);
         }
 
     });
 }
 function getDriverCount() {
     $.ajax({
+        url: 'http://localhost:8080/BackEnd_war/driver?driverCount=001',
         method: "get",
-        url: 'http://localhost:8080/GMA_Backend_war_exploded/v2/driver/driverCount',
         async: true,
         success: function (response) {
-            var resp = response.data;
-            console.log(resp);
-            $('#txtDriverCount').text(resp);
+            if (response.code==200)$('#txtDriverCount').text(response.data);
+            else alert(response.message);
+
         }
 
     });
@@ -356,3 +361,4 @@ function getCarRegNo() {
 
     });
 }
+

@@ -3,7 +3,7 @@ $("#driver").css("display", "none");
 $("#customer").css("display", "none");
 
 var adminId;
-
+var adminUserName;
 $("#btn_Login").click(function () {
         let userName = $('#txtUserName').val();
         let password = $('#txtPassword').val();
@@ -56,8 +56,25 @@ $("#btn_Login").click(function () {
                                                     if (resAdmin.code==200){
                                                         if (resAdmin.data!=null){
                                                             if (resAdmin.data.password == password) {
-                                                                adminId=resAdmin.data;
+                                                                //adminId=resAdmin.data.adminID;
+                                                                //adminUserName=resAdmin.data.userName;
                                                                 //load admin
+                                                                $.ajax({
+                                                                    url:"http://localhost:8080/BackEnd_war/login",
+                                                                    method:"POST",
+                                                                    data: JSON.stringify({
+                                                                        "loginID":resAdmin.data.adminID,
+                                                                        "userName":resAdmin.data.userName,
+                                                                        "password":resAdmin.data.password
+                                                                    }),
+                                                                    dataType: 'Json',
+                                                                    contentType: "application/json",
+                                                                    success:function (res){
+                                                                        if (res.code==200){
+                                                                            console.log(res.message);
+                                                                        }else alert(res.message);
+                                                                    }
+                                                                });
                                                                 window.location = "http://localhost:63342/BackEnd/FruntEnd/src/common/admin.html?_ijt=90mbd3au146q9m67jhk1eoag43";
                                                             }else alert("Password is not correct..! Please try again.");
                                                         }else alert("Username is not correct . Please try again..!");

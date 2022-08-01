@@ -16,10 +16,22 @@ public class LoginController {
     @Autowired
     LoginService loginService;
 
-    @ResponseStatus(HttpStatus.CREATED)//201
+
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil saveLogin(@RequestBody LoginDTO login){
         loginService.saveLogin(login);
         return new ResponseUtil(200,"Saved",null);
+    }
+
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public  ResponseUtil getLoginAdmin(){
+        return new ResponseUtil(200,"Ok",loginService.getAllLogins());
+    }
+
+
+    @DeleteMapping(path = "{id}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil deleteLoginAdmin(@PathVariable String id){
+        loginService.deleteLogin(id);
+        return new ResponseUtil(200,"Deleted",null);
     }
 }

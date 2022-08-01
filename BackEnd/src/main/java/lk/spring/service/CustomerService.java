@@ -10,6 +10,7 @@ public interface CustomerService {
     void deleteCustomer(String id);
     CustomerDTO searchCustomer(String id);
     CustomerDTO searchCustomerForLog(String userName,String password);
+    int getCustomerCount();
     List<CustomerDTO> getAllCustomers();
     CustomerDTO findLastCustomerById();
 }

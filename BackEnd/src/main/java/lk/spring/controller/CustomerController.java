@@ -39,6 +39,11 @@ public class CustomerController {
         return new ResponseUtil(200,"Ok",customerService.searchCustomer(id));
     }
 
+    @GetMapping(params = {"customerCount"},produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil getCustomerCountDatabase(){
+        return new ResponseUtil(200,"OK",customerService.getCustomerCount());
+    }
+
     @GetMapping(params = {"userName","password"},produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil searchCustomerForLogin(@RequestParam("userName") String userName,@RequestParam("password") String password){
         return new ResponseUtil(200,"Ok",customerService.searchCustomerForLog(userName,password));

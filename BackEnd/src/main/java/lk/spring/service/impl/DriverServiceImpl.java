@@ -88,4 +88,11 @@ public class DriverServiceImpl implements DriverService {
             return mapper.map(driverRepo.findTopByOrderByDriverIDDesc(),DriverDTO.class);
         }
     }
+
+    @Override
+    public int getDriverCount() {
+        int i = driverRepo.totalDriverCount();
+        System.out.println("Booking ->"+i);
+        return i;
+    }
 }

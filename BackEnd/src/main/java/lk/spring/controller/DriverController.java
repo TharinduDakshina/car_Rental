@@ -35,6 +35,11 @@ public class DriverController {
         return new ResponseUtil(200,"Ok",driverService.getAllDrivers());
     }
 
+    @GetMapping(params = {"driverCount"},produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil getDriverCountDatabase(){
+        return new ResponseUtil(200,"OK",driverService.getDriverCount());
+    }
+
     @GetMapping(path = "{id}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil searchDriver(@PathVariable String id){
         return new ResponseUtil(200,"Ok",driverService.searchDriver(id));

@@ -39,6 +39,10 @@ public class CarController {
     public ResponseUtil searchCar(@PathVariable String id){
         return new ResponseUtil(200,"Ok",carService.searchCar(id));
     }
+    @GetMapping(params = {"carCount"},produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil getCarCountDatabase(){
+        return new ResponseUtil(200,"OK",carService.getCarCount());
+    }
 
     @DeleteMapping(path = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil deleteCar(@PathVariable String id){

@@ -51,6 +51,13 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
+    public int getCarCount() {
+        int i = carRepo.totalCarCount();
+        System.out.println(i);
+        return i;
+    }
+
+    @Override
     public CarDTO searchCar(String id) {
         if (carRepo.existsById(id)) {
             return mapper.map(carRepo.findById(id).get(), CarDTO.class);

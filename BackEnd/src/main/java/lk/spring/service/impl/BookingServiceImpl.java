@@ -54,6 +54,12 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
+    public int countBookingAmount() {
+        int i = bookingRepo.totalBookingAmount();
+        return i;
+    }
+
+    @Override
     public List<BookingDTO> getAllBooking() {
         return mapper.map(bookingRepo.findAll(), new TypeToken<List<BookingDTO>>() {
         }.getType());

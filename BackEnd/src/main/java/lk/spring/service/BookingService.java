@@ -10,6 +10,7 @@ public interface BookingService {
     void updateBooking(BookingDTO dto);
     void deleteBooking(String id);
     BookingDTO searchBooking(String id);
+    int countBookingAmount();
     List<BookingDTO> getAllBooking();
     BookingDTO findLastBookingById();
 }

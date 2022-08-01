@@ -17,7 +17,7 @@ public class AdminController {
     @Autowired
     AdminService adminService;
 
-    @ResponseStatus(HttpStatus.CREATED)//201
+
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil saveAdmin(@RequestBody AdminDTO admin){
         adminService.saveAdmin(admin);
@@ -35,7 +35,7 @@ public class AdminController {
         return new ResponseUtil(200,"Ok",adminService.getAllAdmin());
     }
 
-    @GetMapping(path = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "{id}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil searchAdmin(@PathVariable String id){
         return new ResponseUtil(200,"Ok",adminService.searchAdmin(id));
     }

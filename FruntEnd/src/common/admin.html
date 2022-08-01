@@ -66,18 +66,10 @@
             <nav class="navbar navbar-light navbar-expand bg-white shadow topbar static-top">
                 <div class="container-fluid">
                     <button class="btn btn-link d-md-none rounded-circle mr-3" type="button"></button>
-                    <form class="form-inline d-none d-sm-inline-block mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                        <div class="input-group"><input class="bg-light form-control border-0 small" type="text"
-                                                        placeholder="Search for ...">
-                            <div class="input-group-append">
-                                <button class="btn py-0" type="button"><img src="../assets/icon/icons8_search.ico">
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                    <div class="nav-item dropdown no-arrow">
+
+                    <div id="accountName" class="nav-item dropdown no-arrow">
                         <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#">
-                            <span class="d-none d-lg-inline mr-2 text-gray-600 small" style="font-size: 1rem">Tharindu Dakshina</span>
+                            <span id="adminNameInHeader" class="d-none d-lg-inline mr-2 text-gray-600 small" style="font-size: 1rem">Tharindu Dakshina</span>
                             <img class="rounded-circle img-profile" src="../assets/icon/icons8_businessman_32.png"></a>
                         <div class="dropdown-menu shadow dropdown-menu-right animated--grow-in" role="menu">
                             <a class="dropdown-item" role="presentation" style="cursor: pointer" id="btnAdminProfile">Profile</a>
@@ -267,9 +259,8 @@
                                                                     id="adminID"
                                                                     class="form-control"
                                                                     type="text"
-                                                                    placeholder="A###"
+                                                                    placeholder="A-###"
                                                                     name="adminId"
-                                                                    value="A001"
                                                             >
                                                         </div>
                                                     </div>
@@ -281,7 +272,6 @@
                                                                     id="adminEmail"
                                                                     class="form-control"
                                                                     type="email"
-                                                                    value="tharindudakshina527@gmail.com"
                                                                     placeholder="user@example.com"
                                                                     name="email">
                                                         </div>
@@ -290,9 +280,18 @@
                                                 <div class="form-row">
                                                     <div class="col">
                                                         <div class="form-group">
+                                                            <label><strong>Name</strong></label>
+                                                            <input id="adminFullName"
+                                                                    class="form-control"
+                                                                    type="text"
+                                                                   placeholder="Saman Kumara"
+                                                                    name="adminName">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <div class="form-group">
                                                             <label><strong> User Name</strong></label>
                                                             <input
-                                                                    value="Tharindu Dakshina"
                                                                     id="adminName"
                                                                     class="form-control"
                                                                     type="text"
@@ -300,35 +299,27 @@
                                                                     name="username">
                                                         </div>
                                                     </div>
-                                                    <div class="col">
-                                                        <div class="form-group">
-                                                            <label><strong>Password</strong></label>
-                                                            <input  value="1023"
-                                                                    id="adminPassword"
-                                                                    class="form-control"
-                                                                    type="password"
-                                                                    placeholder="######"
-                                                                    name="password">
-                                                        </div>
-                                                    </div>
+
 
                                                     <div class="col">
                                                         <div class="form-group">
                                                             <label><strong>Confirm Password</strong></label>
                                                             <input id="adminConfirmPassword"
                                                                    class="form-control"
-                                                                   value="1023"
-                                                                   type="password"
-                                                                   placeholder="######"
+                                                                   type="text"
+                                                                   placeholder="***"
                                                                    name="confirm_password">
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="form-group mb-2">
-                                                    <button id="btnAdminSave" class="btn  btn-sm" type="button">Save
+                                                    <button id="btnAdminSave" class="btn  btn-sm" type="button" style="background-color: #1f7951">Save
                                                     </button>
                                                     <button id="btnAdminUpdate" class="btn  btn-sm" type="button">
                                                         Update
+                                                    </button>
+                                                    <button id="adminProfileClear" class="btn  btn-sm" type="button"style="background-color: #eecd0e">
+                                                        clear
                                                     </button>
                                                 </div>
                                             </form>

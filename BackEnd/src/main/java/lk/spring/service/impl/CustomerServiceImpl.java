@@ -68,6 +68,11 @@ public class CustomerServiceImpl implements CustomerService {
         }else return null;
     }
 
+    @Override
+    public int getCustomerCount() {
+        return customerRepo.countByCustomerID();
+    }
+
 
     @Override
     public List<CustomerDTO> getAllCustomers() {

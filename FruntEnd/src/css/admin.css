@@ -162,3 +162,8 @@
     background-color: #78746de3;
     color: white;
 }
+
+#accountName{
+    position: relative;
+    left: 80%;
+}
