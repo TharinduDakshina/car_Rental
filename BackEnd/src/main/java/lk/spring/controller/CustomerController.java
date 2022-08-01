@@ -49,7 +49,7 @@ public class CustomerController {
         return new ResponseUtil(200,"Ok",customerService.searchCustomerForLog(userName,password));
     }
 
-    @DeleteMapping(path = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(path = "{id}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil deleteCustomer(@PathVariable String id){
         customerService.deleteCustomer(id);
         return new ResponseUtil(200,"Deleted",null);

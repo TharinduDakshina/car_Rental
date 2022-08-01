@@ -105,7 +105,7 @@ function bindClickEventAdminCustomer() {
         $('#adCustNic').val(nic);
         $('#adCustDl').val(dl);
         $('#adCustContact').val(contact);
-       
+
     });
 }
 
@@ -166,19 +166,24 @@ function updateCustomer() {
 $('#btnAdminCustomerDelete').click(function () {
     let id = $("#adCustId").val();
     if (id != "") {
-        $.ajax({
-            method: "delete",
-            url: 'http://localhost:8080/GMA_Backend_war_exploded/v2/customer/?id=' + id,
-            async: true,
-            success: function (response) {
-                loadAllCustomer();
-                getLastCustomerId();
-                clearCustomerFields();
-                console.log("deleted")
-            },
-            error: function (response) {
-            }
-        });
+        if (confirm("Do you want to delete this customer ?")==true) {
+            $.ajax({
+                url: 'http://localhost:8080/BackEnd_war/customer/' + id,
+                method: "delete",
+                async: false,
+                success: function (response) {
+                    if (response.code == 200) {
+                        loadAllCustomer();
+                        clearCustomerFields();
+                        getLastCustomerId();
+                        console.log("deleted")
+                        alert("Customer Deleted..!");
+                    }else alert(response.message);
+                },
+                error: function (response) {
+                }
+            });
+        }
     }
 
 });
