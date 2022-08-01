@@ -16,7 +16,7 @@ public class CustomerController {
     @Autowired
     CustomerService customerService;
 
-    @ResponseStatus(HttpStatus.CREATED)//201
+
     @PostMapping(consumes = "application/json",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil saveCustomer(@RequestBody CustomerDTO customer){
         customerService.saveCustomer(customer);

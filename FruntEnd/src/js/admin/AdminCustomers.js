@@ -1,128 +1,62 @@
 //Start Admin Customer Validation Section
-function checkValidationAdminCustomer() {
-
-    let custId = $('#adCustId').val();
-    let custName = $('#adCustName').val();
-    let custAdd = $('#adCustAddress').val();
-    let custEmail = $('#adCustEmail').val();
-    let custNic = $('#adCustNic').val();
-    let custDl = $('#adCustDl').val();
-    let custContact = $('#adCustContact').val();
-
-    if (custId != "") {
-        if (custName != "") {
-            if (custAdd != "") {
-                if (custEmail != "") {
-                    if (custNic != "") {
-                        if (custDl != "") {
-                            if (custContact) {
-                                return true;
-                            } else {
-                                $('#adCustContact').css({
-                                    'border': '2px #FF0000FF solid'
-                                });
-                                $('#adCustContact').focus();
-                                alert("Please Enter Contact");
-                                return false;
-                            }
-                        } else {
-                            $('#adCustDl').css({
-                                'border': '2px #FF0000FF solid'
-                            });
-                            $('#adCustDl').focus();
-                            alert("Please Enter Driver License");
-                            return false;
-                        }
-                    } else {
-                        $('#adCustNic').css({
-                            'border': '2px #FF0000FF solid'
-                        });
-                        $('#adCustNic').focus();
-                        alert("Please Enter Nic");
-                        return false;
-                    }
-                } else {
-                    $('#adCustEmail').css({
-                        'border': '2px #FF0000FF solid'
-                    });
-                    $('#adCustEmail').focus();
-                    alert("Please Enter Email");
-                    return false;
-                }
-            } else {
-                $('#adCustAddress').css({
-                    'border': '2px #FF0000FF solid'
-                });
-                $('#adCustAddress').focus();
-                alert("Please Enter Address");
-                return false;
-            }
-        } else {
-            $('#adCustName').css({
-                'border': '2px #FF0000FF solid'
-            });
-            $('#adCustName').focus();
-            alert("Please Enter Name");
-            return false;
-        }
-    } else {
-        $('#adCustId').css({
-            'border': '2px #FF0000FF solid'
-        });
-        $('#adCustId').focus();
-        alert("Please Enter Id");
-        return false;
-    }
-}
 
 //End Admin Customer Validation Section
 
 function clearCustomerFields() {
-    $('#adCustId').val(null);
+    $('#adCustId').val("");
     $('#adCustName').val("");
     $('#adCustAddress').val("");
     $('#adCustEmail').val("");
     $('#adCustNic').val("");
     $('#adCustDl').val("");
     $('#adCustContact').val("");
+    $('#adCsUsername').val("");
+    $('#adCsPassword').val("");
+    $('#adCsConfirmPassword').val("");
 }
 
 //Start Admin Save Section
 $('#btnAdminCustomerSave').click(function () {
 
-    if (checkValidationAdminCustomer()) {
-        let custId = $('#adCustId').val();
-        let custName = $('#adCustName').val();
-        let custAdd = $('#adCustAddress').val();
-        let custEmail = $('#adCustEmail').val();
-        let custNic = $('#adCustNic').val();
-        let custDl = $('#adCustDl').val();
-        let custContact = $('#adCustContact').val();
+        let cstId = $('#adCustId').val();
+        let cstName = $('#adCustName').val();
+        let cstAdd = $('#adCustAddress').val();
+        let cstEmail = $('#adCustEmail').val();
+        let cstNic = $('#adCustNic').val();
+        let cstDl = $('#adCustDl').val();
+        let cstContact = $('#adCustContact').val();
+        let cstUsername = $('#adCsUsername').val();
+        let cstPassword = $('#adCsConfirmPassword').val();
 
         $.ajax({
+            url: "http://localhost:8080/BackEnd_war/customer",
             method: "POST",
-            url: "http://localhost:8080/GMA_Backend_war_exploded/v2/customer",
             dataType: 'Json',
             async: true,
             contentType: "application/json",
             data: JSON.stringify({
-                customerId: custId,
-                customerName: custName,
-                customerAddress: custAdd,
-                customerEmail: custEmail,
-                customerNIC: custNic,
-                customerDrivingLIC: custDl,
-                customerContact: custContact
+                "customerID": cstId,
+                "name": cstName,
+                "contact": cstContact,
+                "address": cstAdd,
+                "email": cstEmail,
+                "nicNo": cstNic,
+                "drivingLicenceNo": cstDl,
+                "userName": cstUsername,
+                "password": cstPassword
             }),
             success: function (res) {
-                loadAllCustomer();
-                clearCustomerFields();
-
+                if (res.code==201){
+                    alert("Customer added successfully .");
+                    loadAllCustomer();
+                    clearCustomerFields();
+                }else alert(res.message);
             },
             error: function (ob, textStatus, error) {
+                alert(error);
             }
         });
-    }
+
 });
 //End Admin Save Section
 
@@ -130,24 +64,48 @@ $('#btnAdminCustomerSave').click(function () {
 function loadAllCustomer() {
     $('#tblCustomerBody').empty();
     $.ajax({
-        url: 'http://localhost:8080/GMA_Backend_war_exploded/v2/customer',
+        url: 'http://localhost:8080/BackEnd_war/customer',
         method: 'GET',
         async: false,
         dataType: 'json',
         success: function (res) {
             let values = res.data;
             for (i in values) {
-                let cID = values[i].customerId;
-                let cNIC = values[i].customerNIC;
-                let cNAME = values[i].customerName;
-                let cAddress = values[i].customerAddress;
-                let cEmail = values[i].customerEmail;
-                let cDLIC = values[i].customerDrivingLIC;
-                let cContact = values[i].customerContact;
+                let cID = values[i].customerID;
+                let cNIC = values[i].nicNo;
+                let cNAME = values[i].name;
+                let cAddress = values[i].address;
+                let cEmail = values[i].email;
+                let cDLIC = values[i].drivingLicenceNo;
+                let cContact = values[i].contact;
 
                 $('#tblCustomerBody').append(`<tr><td>${cID}</td><td>${cNIC}</td><td>${cNAME}</td><td>${cAddress}</td><td>${cEmail}</td><td>${cDLIC}</td><td>${cContact}</td></tr>`)
             }
+            bindClickEventAdminCustomer();
         }
+    });
+}
+
+function bindClickEventAdminCustomer() {
+    $("#tblCustomerBody>tr").click(function () {
+        //Get values from the selected row
+        let id = $(this).children().eq(0).text();
+        let nic = $(this).children().eq(1).text();
+        let name = $(this).children().eq(2).text();
+        let address = $(this).children().eq(3).text();
+        let email = $(this).children().eq(4).text();
+        let dl = $(this).children().eq(5).text();
+        let contact = $(this).children().eq(6).text();
+
+        //Set values to the text-fields
+        $('#adCustId').val(id);
+        $('#adCustName').val(name);
+        $('#adCustAddress').val(address);
+        $('#adCustEmail').val(email);
+        $('#adCustNic').val(nic);
+        $('#adCustDl').val(dl);
+        $('#adCustContact').val(contact);
+       
     });
 }
 
@@ -162,39 +120,45 @@ $('#btnAdminCustomerUpdate').click(() => {
     updateCustomer();
 });
 function updateCustomer() {
-    if (checkValidationAdminCustomer()) {
-        let custId = $('#adCustId').val();
-        let custName = $('#adCustName').val();
-        let custAdd = $('#adCustAddress').val();
-        let custEmail = $('#adCustEmail').val();
-        let custNic = $('#adCustNic').val();
-        let custDl = $('#adCustDl').val();
-        let custContact = $('#adCustContact').val();
+
+    let cstId = $('#adCustId').val();
+    let cstName = $('#adCustName').val();
+    let cstAdd = $('#adCustAddress').val();
+    let cstEmail = $('#adCustEmail').val();
+    let cstNic = $('#adCustNic').val();
+    let cstDl = $('#adCustDl').val();
+    let cstContact = $('#adCustContact').val();
+    let cstUsername = $('#adCsUsername').val();
+    let cstPassword = $('#adCsConfirmPassword').val();
 
         $.ajax({
+            url: "http://localhost:8080/BackEnd_war/customer",
             method: "put",
-            url: "http://localhost:8080/GMA_Backend_war_exploded/v2/customer",
             contentType: "application/json",
             async: false,
             data: JSON.stringify(
                 {
-                    "customerId": custId,
-                    "customerName": custName,
-                    "customerAddress": custAdd,
-                    "customerEmail": custEmail,
-                    "customerNIC": custNic,
-                    "customerDrivingLIC": custDl,
-                    "customerContact": custContact
+                    "customerID": cstId,
+                    "name": cstName,
+                    "contact": cstContact,
+                    "address": cstAdd,
+                    "email": cstEmail,
+                    "nicNo": cstNic,
+                    "drivingLicenceNo": cstDl,
+                    "userName": cstUsername,
+                    "password": cstPassword
                 }
             ),
-            success: function (data) {
-                loadAllCustomer();
-                clearCustomerFields();
-                getLastCustomerId();
-                return true;
+            success: function (res) {
+                if (res.code == 200) {
+                    alert("Customer successfully updated");
+                    loadAllCustomer();
+                    clearCustomerFields();
+                    getLastCustomerId();
+                }else alert(res.message);
             }
         });
-    }
+
 }
 //End Admin Customer Update
 

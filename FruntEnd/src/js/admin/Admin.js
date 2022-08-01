@@ -111,7 +111,6 @@ $('#btn_CustomerPage').click(function () {
     });
     loadAllCustomer();
     getLastCustomerId();
-    getCustomerDLIC();
 });
 
 $('#btn_CarPage').click(function () {
@@ -307,14 +306,13 @@ function getDriverCount() {
 
 function getLastCustomerId() {
     $.ajax({
+        url: 'http://localhost:8080/BackEnd_war/customer?cusId=C-000',
         method: "get",
-        url: 'http://localhost:8080/GMA_Backend_war_exploded/v2/customer/lastCustomerId',
         async: false,
         success: function (response) {
-            var data = response.data;
-            console.log("data" + data);
-            $('#adCustId').val(data)
-            console.log($('#adCustId').val());
+            if (response.code == 200) {
+                $("#adCustId").attr("placeholder",response.data);
+            }else console.log(response.message);
         }
 
     });
