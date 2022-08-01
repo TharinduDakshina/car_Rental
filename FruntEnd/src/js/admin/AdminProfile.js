@@ -3,14 +3,15 @@ var adminId;
     getAdmin();
 }
 
-let admin_id = $('#adminID').val();
-let admin_email = $('#adminEmail').val();
-let admin_name = $('#adminName').val();
-let admin_full_name = $('#adminFullName').val()
-let admin_cpw = $('#adminConfirmPassword').val();
-
 //Start Admin Save Section
 $('#btnAdminSave').click(() => {
+    let admin_id = $('#adminID').val();
+    let admin_email = $('#adminEmail').val();
+    let admin_name = $('#adminName').val();
+    let admin_full_name = $('#adminFullName').val()
+    let admin_cpw = $('#adminConfirmPassword').val();
+
+
     console.log(admin_full_name);
     console.log(admin_name);
     console.log(admin_id);
@@ -31,7 +32,7 @@ $('#btnAdminSave').click(() => {
         contentType: "application/json",
         success: function (res) {
             if (res.code == 200) {
-                alert("Admin Update successful .");
+                alert("Admin save successful .");
                 clearAdProfile();
             }else alert(res.message);
         },
@@ -60,6 +61,46 @@ $("#btnAdminLogout").click(function (){
     });
 });
 
+//Admin Update
+$("#btnAdminUpdate").click(function (){
+    let admin_id = $('#adminID').val();
+    let admin_email = $('#adminEmail').val();
+    let admin_name = $('#adminName').val();
+    let admin_full_name = $('#adminFullName').val()
+    let admin_cpw = $('#adminConfirmPassword').val();
+
+
+    console.log(admin_id);
+    console.log(admin_full_name);
+    console.log(admin_email);
+    console.log(admin_name);
+    console.log(admin_cpw);
+
+    $.ajax({
+        url: "http://localhost:8080/BackEnd_war/admin",
+        method: "PUT",
+        data: JSON.stringify({
+            "adminID": admin_id,
+            "name": admin_full_name,
+            "email": admin_email,
+            "userName": admin_name,
+            "password": admin_cpw
+        }),
+        dataType: 'Json',
+        contentType: "application/json",
+        success: function (res) {
+            if (res.code == 200) {
+                alert("Admin Update successful .");
+                clearAdProfile();
+            }
+        },
+        error: function (ob, textStatus, error) {
+            alert(error);
+        }
+    });
+
+});
+
 function loadAdmin(admin) {
     $.ajax({
         url: "http://localhost:8080/BackEnd_war/admin/"+admin,
@@ -73,7 +114,7 @@ function loadAdmin(admin) {
                 $('#adminFullName').val(res.data.name);
                 $('#adminConfirmPassword').val(res.data.password);
                 console.log("111111");
-               // $('#adminNameInHeader').value(res.data.name);
+                $('#adminNameInHeader').text(res.data.name);
                 console.log("2222222");
             }else console.log(res.message);
         }
@@ -106,36 +147,142 @@ function clearAdProfile() {
 }
 
 
-//Admin Update
-$("#btnAdminUpdate").click(function (){
-    $.ajax({
-        url: "http://localhost:8080/BackEnd_war/admin",
-        method: "PUT",
-        data: JSON.stringify({
-            "adminID": admin_id,
-            "name": admin_full_name,
-            "email": admin_email,
-            "userName": admin_name,
-            "password": admin_cpw
-        }),
-        dataType: 'Json',
-        contentType: "application/json",
-        success: function (res) {
-            if (res.code == 200) {
-                alert("Admin save successful .");
-                clearAdProfile();
-            }
-        },
-        error: function (ob, textStatus, error) {
-            alert(error);
-        }
-    });
+//Start Admin Validation Section
 
+let regxAdminID = /^(A-)[0-9]{1,3}$/;
+let regxAdminName = /^[A-z ]{3,20}$/;
+let regxAdminEmailAddress = /^[a-zA-Z0-9.! #$%&'*+/=? ^_`{|}~-]+@[a-zA-Z0-9-.]+(?:\. [a-zA-Z0-9-]+)*$/;
+
+$('#adminID,#adminEmail,#adminName,#adminFullName,#adminConfirmPassword').on('keydown', function (eventOb) {
+    if (eventOb.key == "Tab") {
+        eventOb.preventDefault();
+    }
 });
 
 
-//Start Admin Validation Section
+$('#adminID,#adminEmail,#adminName,#adminFullName,#adminConfirmPassword').on('blur', function () {
+    formValidAdminProfile();
+});
 
+function formValidAdminProfile() {
+    var adminProfileID = $("#adminID").val();
+    if (regxAdminID.test(adminProfileID)) {
+        $("#adminID").css('border', '2px solid green');
+        var adminEmail = $("#adminEmail").val();
+        if (regxAdminEmailAddress.test(adminEmail)) {
+            $("#adminEmail").css('border', '2px solid green');
+            var adminName = $("#adminFullName").val();
+            if (regxAdminName.test(adminName)) {
+                var adminUsername = $("#adminName").val();
+                $("#adminFullName").css('border', '2px solid green');
+                if (regxAdminName.test(adminUsername)) {
+                    var confirmPassword = $("#adminConfirmPassword").val();
+                    $("#adminName").css('border', '2px solid green');
+                    if (confirmPassword!=""){
+                        $("#adminConfirmPassword").css('border', '2px solid green');
+                        return true;
+                    }else {
+                        $("#adminConfirmPassword").css('border', '2px solid red');
+                        return false;
+                    }
+                } else {
+                    $("#adminName").css('border', '2px solid red');
+                    return false;
+                }
+            } else {
+                $("#adminFullName").css('border', '2px solid red');
+                return false;
+            }
+        } else {
+            $("#adminEmail").css('border', '2px solid red');
+            return false;
+        }
+    } else {
+        $("#adminID").css('border', '2px solid red');
+        return false;
+    }
+}
+
+$("#adminID").on('keyup', function (eventOb) {
+    setButtonAdminProfile();
+    if (eventOb.key == "Enter") {
+        checkIfValidAdminProfile();
+    }
+});
+
+$("#adminEmail").on('keyup', function (eventOb) {
+    setButtonAdminProfile();
+    if (eventOb.key == "Enter") {
+        checkIfValidAdminProfile();
+    }
+});
+
+$("#adminName").on('keyup', function (eventOb) {
+    setButtonAdminProfile();
+    if (eventOb.key == "Enter") {
+        checkIfValidAdminProfile();
+    }
+});
+
+$("#adminFullName").on('keyup', function (eventOb) {
+    setButtonAdminProfile();
+    if (eventOb.key == "Enter") {
+        checkIfValidAdminProfile();
+    }
+});
+
+$("#adminConfirmPassword").on('keyup', function (eventOb) {
+    setButtonAdminProfile();
+    if (eventOb.key == "Enter") {
+        checkIfValidAdminProfile();
+    }
+});
+
+function checkIfValidAdminProfile() {
+    var adminProfileID = $("#adminID").val();
+    if (regxAdminID.test(adminProfileID)) {
+        $("#adminEmail").focus();
+        var adminProfileEmail = $("#adminEmail").val();
+        if (regxAdminEmailAddress.test(adminProfileEmail)) {
+            $("#adminFullName").focus();
+            var adminName = $("#adminFullName").val();
+            if (regxAdminName.test(adminName)) {
+                $("#adminName").focus();
+                var adminUserName = $("#adminName").val();
+                if (regxAdminName.test(adminUserName)) {
+                    $("#adminConfirmPassword").focus();
+                    var adminPassword = $("#adminConfirmPassword").val();
+                    if (adminPassword!=""){
+                        let res = confirm("Do you really need to add this Customer..?");
+                        if (res) {
+                            // saveCustomer();
+                            //clearAll();
+                        }
+                    }else {
+                        $("#adminConfirmPassword").focus();
+                    }
+                } else {
+                    $("#adminName").focus();
+                }
+            } else {
+                $("#adminFullName").focus();
+            }
+        } else {
+            $("#adminEmail").focus();
+        }
+    } else {
+        $("#adminID").focus();
+    }
+}
+
+function setButtonAdminProfile() {
+    let b = formValidAdminProfile();
+    if (b) {
+        $("#btnAdminSave,#btnAdminUpdate").attr('disabled', false);
+    } else {
+        $("#btnAdminSave,#btnAdminUpdate").attr('disabled', true);
+    }
+}
 //End Admin Validation Section
 
 

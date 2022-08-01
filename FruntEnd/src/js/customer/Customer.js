@@ -1,24 +1,5 @@
 var loginCustomerId;
-function loadCustomer(customerId){
-    loginCustomerId=customerId;
-    $.ajax({
-        url:"http://localhost:8080/BackEnd_war/customer/"+customerId,
-        method: "GET",
-        success:function (res){
-            if (res.code==200){
-                $("#cstId").val(res.data.customerID);
-                $("#cstName").val(res.data.name);
-                $("#cstAddress").val(res.data.address);
-                $("#cstEmail").val(res.data.email);
-                $("#cstNic").val(res.data.nicNo);
-                $("#cstDl").val(res.data.drivingLicenceNo);
-                $("#cstContact").val(res.data.contact);
-                $("#cstPassword").val(res.data.password);
-                $("#cstUsername").val(res.data.userName);
-            }
-        }
-    });
-}
+
 
 
 //Start Customer Validation Section
@@ -217,6 +198,29 @@ function setButtonCustomer() {
 
 //End Customer Validation Section
 
+function loadCustomer(customerId){
+    loginCustomerId=customerId;
+    $.ajax({
+        url:"http://localhost:8080/BackEnd_war/customer/"+customerId,
+        method: "GET",
+        success:function (res){
+            if (res.code==200){
+                $("#cstId").val(res.data.customerID);
+                $("#cstName").val(res.data.name);
+                $("#cstAddress").val(res.data.address);
+                $("#cstEmail").val(res.data.email);
+                $("#cstNic").val(res.data.nicNo);
+                $("#cstDl").val(res.data.drivingLicenceNo);
+                $("#cstContact").val(res.data.contact);
+                $("#cstPassword").val(res.data.password);
+                $("#cstUsername").val(res.data.userName);
+            }
+        }
+    });
+}
+
+
+
 //Start Customer Save Section
 $("#btnCustomerUpdate").click(() => {
 
@@ -264,7 +268,6 @@ $("#btnCustomerUpdate").click(() => {
                 alert(error);
             }
         });
-
 });
 //End Customer Save Section
 
@@ -455,31 +458,7 @@ $('#btnCustPay').click(function () {
     });
 });
 //Start Search Customer Section
-function searchCustomerProfile() {
-    // $("#tblCustomerBody").empty();
-    let id = $("#custId").val();
-    if (id != "") {
-        $.ajax({
-            method: "get",
-            url: 'http://localhost:8080/GMA_Backend_war_exploded/v2/customer/' + id,
-            async: true,
-            dataType: 'json',
-            success: function (response) {
-                var data = response.data;
 
-                $('#custId').val(data.customerId);
-                $('#custName').val(data.customerName);
-                $('#custAddress').val(data.customerAddress);
-                $('#custEmail').val(data.customerEmail);
-                $('#custNic').val(data.customerNIC);
-                $('#custDl').val(data.customerDrivingLIC);
-                $('#custContact').val(data.customerContact);
-                $('#custPassword').val(data.customerPassword);
-            }
-        });
-    } else {
-    }
-}
 //End Search Customer Section
 //Start Customer Update
 $('#btnAdminCustomerUpdate').click(() => {

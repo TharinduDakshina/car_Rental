@@ -42,14 +42,6 @@ function saveCustomer() {
     var genId = genarateId(selectType);
     console.log(genId);
 
-    /*var regData={
-        "id": genId,
-        "name": loginFName+" "+loginLName,
-        "emailAddress": loginEmail,
-        "userName":loginFName,
-        "password":loginConfirmPassword
-    }*/
-
 
     if (selectType=="Driver"){
         $.ajax({
