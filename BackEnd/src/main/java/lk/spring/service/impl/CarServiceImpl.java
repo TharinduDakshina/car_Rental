@@ -71,4 +71,13 @@ public class CarServiceImpl implements CarService {
         return mapper.map(carRepo.findAll(), new TypeToken<List<CarDTO>>() {
         }.getType());
     }
+
+    @Override
+    public CarDTO findLastCarById() {
+        if (carRepo.findTopByOrderByCarIDDesc()==null){
+            return null;
+        }else{
+            return mapper.map(carRepo.findTopByOrderByCarIDDesc(),CarDTO.class);
+        }
+    }
 }

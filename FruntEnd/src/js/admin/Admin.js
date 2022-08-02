@@ -109,6 +109,7 @@ $('#btn_CustomerPage').click(function () {
     $('#admin_Payment_Page').css({
         'display': 'none'
     });
+    $("#btnAdminCustomerSave,#btnAdminCustomerUpdate").attr('disabled', true);
     loadAllCustomer();
     getLastCustomerId();
 });
@@ -137,7 +138,6 @@ $('#btn_CarPage').click(function () {
     });
     loadAllCars();
     getLastCarId();
-    getCarRegNo();
 
 });
 
@@ -319,14 +319,13 @@ function getLastCustomerId() {
 }
 function getLastCarId() {
     $.ajax({
-        method: "get",
-        url: 'http://localhost:8080/GMA_Backend_war_exploded/v2/car/lastCarId',
+        url: 'http://localhost:8080/BackEnd_war/car?carId=C-001',
+        method: "GET",
         async: false,
         success: function (response) {
-            var data = response.data;
-            console.log("data" + data);
-            $('#adCarId').val(data)
-            console.log($('#adCarId').val());
+            if (response.code == 200) {
+                $("#adCarId").attr("placeholder",response.data);
+            }else alert(response.message);
         }
 
     });

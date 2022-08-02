@@ -13,5 +13,6 @@ public interface CarService {
     int getCarCount();
     CarDTO searchCar(String id);
     List<CarDTO> getAllCars();
+    CarDTO findLastCarById();
 
 }

@@ -458,16 +458,16 @@
                                                 </div>
                                             </div>
                                             <div class="form-group mb-2">
-                                                <button id="btnAdminCustomerSave" class="btn  btn-sm" type="button">
+                                                <button id="btnAdminCustomerSave" class="btn  btn-sm" type="button" style="background-color: #4f7a0b">
                                                     Save
                                                 </button>
-                                                <button id="btnAdminCustomerUpdate" class="btn  btn-sm" type="button">
+                                                <button id="btnAdminCustomerUpdate" class="btn  btn-sm" type="button" style="background-color: #db9008">
                                                     Update
                                                 </button>
-                                                <button id="btnAdminCustomerDelete" class="btn  btn-sm" type="button">
+                                                <button id="btnAdminCustomerDelete" class="btn  btn-sm" type="button" style="background-color: red">
                                                     Delete
                                                 </button>
-                                                <button id="btnAdminCustomerGetAll" class="btn  btn-sm" type="button">
+                                                <button id="btnAdminCustomerGetAll" class="btn  btn-sm" type="button" style="background-color: #3bae79">
                                                     Get All
                                                 </button>
                                             </div>
@@ -525,8 +525,7 @@
                                                                 class="form-control"
                                                                 type="text"
                                                                 placeholder="C###"
-                                                                name="id"
-                                                                onkeypress="searchCar(this)">
+                                                                name="id">
                                                     </div>
                                                 </div>
 
@@ -534,17 +533,20 @@
                                                     <div class="form-group">
                                                         <label><strong>Brand</strong></label>
 
-                                                        <select class="custom-select mb-3" id="adCarBrand">
+                                                        <select  class="custom-select mb-3" id="adCarBrand">
                                                             <option selected>Car Brand</option>
-                                                            <option value="Dodge">Dodge</option>
-                                                            <option value="Chevrolet">Chevrolet</option>
-                                                            <option value="BM2">BM2</option>
-                                                            <option value="Hyundai">Hyundai</option>
-                                                            <option value="Mazda">Mazda</option>
-                                                            <option value="Toyota">Toyota</option>
-                                                            <option value="Volvo">Volvo</option>
-                                                            <option value="Tesla">Tesla</option>
-                                                            <option value="Audi">Audi</option>
+                                                            <option value="Dodge">Suzuki Alto</option>
+                                                            <option value="Chevrolet">Suzuki Alto K10</option>
+                                                            <option value="BM2">Celerio - Auto</option>
+                                                            <option value="Hyundai">Perodua (Daihatsu) Axia  </option>
+                                                            <option value="Mazda">Toyota Prius C/ Aqua</option>
+                                                            <option value="Toyota">Toyota Corolla Axio/ NZE141</option>
+                                                            <option value="Volvo">Perodua Bezza Prime Sedan</option>
+                                                            <option value="Tesla">Toyota Allion NZT 260</option>
+                                                            <option value="Audi">Toyota Axio NKR 165</option>
+                                                            <option value="Audi">Toyota Premio</option>
+                                                            <option value="Audi">BMW i8 </option>
+                                                            <option value="Audi">Mercedes</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -606,14 +608,14 @@
                                                         <select class="custom-select mb-3" id="adCarFuel">
                                                             <option selected>Fuel</option>
                                                             <option value="Diesel">Diesel</option>
-                                                            <option value="prechtel">prechtel</option>
+                                                            <option value="Pectoral">Pectoral</option>
                                                         </select>
                                                     </div>
                                                 </div>
 
                                                 <div class="col">
                                                     <div class="form-group">
-                                                        <label><strong>Price For Extra KM</strong></label>
+                                                        <label><strong>Price For Extra Km</strong></label>
                                                         <input class="form-control"
                                                                type="text"
                                                                id="adCarExtraKm"
@@ -624,12 +626,12 @@
 
                                                 <div class="col">
                                                     <div class="form-group">
-                                                        <label><strong>Registration No</strong></label>
+                                                        <label><strong>Status</strong></label>
                                                         <input class="form-control"
                                                                type="text"
-                                                               id="adCarRegistration"
-                                                               placeholder="car.reg"
-                                                               name="reg">
+                                                               id="adCarStatus"
+                                                               placeholder="car.status"
+                                                               name="status">
                                                     </div>
                                                 </div>
 
@@ -670,37 +672,48 @@
 
                                                 <div class="col">
                                                     <div class="form-group">
-                                                        <label><strong>Free Millage Price</strong></label>
+                                                        <label><strong>Free Km for Day</strong></label>
                                                         <input class="form-control"
                                                                type="text"
-                                                               id="adCarMillagePrice"
-                                                               placeholder="car.millage"
-                                                               name="millage">
+                                                               id="adCarFreeKmDay"
+                                                               placeholder="car.freeKmDay"
+                                                               name="freeKMDay">
                                                     </div>
                                                 </div>
 
                                                 <div class="col">
                                                     <div class="form-group">
-                                                        <label><strong>Free Millage Duration</strong></label>
+                                                        <label><strong>Free Km Monthly</strong></label>
                                                         <input class="form-control"
                                                                type="text"
-                                                               id="adCarDuration"
-                                                               placeholder="car.duration"
-                                                               name="duration">
+                                                               id="adCarFreeKmMonthly"
+                                                               placeholder="car.freeKmMonthly"
+                                                               name="freeKmMonthly">
                                                     </div>
                                                 </div>
+                                                <div class="col">
+                                                    <div class="form-group">
+                                                        <label><strong>Complete Km</strong></label>
+                                                        <input class="form-control"
+                                                               type="text"
+                                                               id="adCarCompleteKm"
+                                                               placeholder="car.completeKm"
+                                                               name="CompleteKm">
+                                                    </div>
+                                                </div>
+
                                             </div>
 
                                             <div class="form-group mb-2">
-                                                <button id="btnAdminCarSave" class="btn  btn-sm" type="button">Save
+                                                <button style="background-color: #4f7a0b" id="btnAdminCarSave" class="btn  btn-sm" type="button">Save
                                                 </button>
-                                                <button id="btnAdminCarUpdate" class="btn  btn-sm" type="button">
+                                                <button style="background-color: #db9008" id="btnAdminCarUpdate" class="btn  btn-sm" type="button">
                                                     Update
                                                 </button>
-                                                <button id="btnAdminCarDelete" class="btn  btn-sm" type="button">
+                                                <button style="background-color: red" id="btnAdminCarDelete" class="btn  btn-sm" type="button">
                                                     Delete
                                                 </button>
-                                                <button id="btnAdminCarGetAll" class="btn  btn-sm" type="button"> Get
+                                                <button style="background-color: #3bae79" id="btnAdminCarGetAll" class="btn  btn-sm" type="button"> Get
                                                     All
                                                 </button>
                                             </div>
@@ -713,11 +726,11 @@
 
                     <div class="table-box" style="height: 250px; overflow: no-display">
                         <div class="table-responsive-lg">
-                            <table class="table table-hover">
-                                <thead class="text-white" id="tblCarHeader">
+                            <table style="border-radius: 6px" class="table table-hover">
+                                <thead style="background-color: #332e2ec4" class="text-white" id="tblCarHeader">
                                 <tr>
                                     <th scope="col">ID</th>
-                                    <th scope="col">Reg No</th>
+                                    <th scope="col">Status</th>
                                     <th scope="col">Brand</th>
                                     <th scope="col">No Of Passengers</th>
                                     <th scope="col">Transmission</th>
@@ -726,7 +739,7 @@
                                     <th scope="col">Fuel Type</th>
                                 </tr>
                                 </thead>
-                                <tbody id="tblCarBody">
+                                <tbody style="background-color: rgba(203,196,196,0.96)" id="tblCarBody">
 
                                 </tbody>
                             </table>

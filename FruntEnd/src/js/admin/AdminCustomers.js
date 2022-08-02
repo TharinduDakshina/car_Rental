@@ -1,5 +1,220 @@
 //Start Admin Customer Validation Section
+let regxAdCsID = /^(C-)[0-9]{1,3}$/;
+let regxAdCstName = /^[A-z ]{3,20}$/;
+let regxAdCsEmail = /^[a-zA-Z0-9.! #$%&'*+/=? ^_`{|}~-]+@[a-zA-Z0-9-.]+(?:\. [a-zA-Z0-9-]+)*$/;
+let regxAdCstAddress = /^[A-z 0-9]{3,50}$/;
+let regxAdCstNic = /^([0-9]{9}[v|V]|[0-9]{12})$/;
+let regxAdDrivingLicense = /^[A-z 0-9]{3,15}$/;
+let regxAdContact = /^[0-9]{10}$/;
+let regxAdCsUsername = /^[a-zA-Z0-9]([._-](?![._-])|[a-zA-Z0-9]){3,18}[a-zA-Z0-9]$/;
 
+$("#adCustId,#adCustName,#adCustAddress,#adCustEmail,#adCustNic,#adCustDl,#adCustContact,#adCsUsername,#adCsPassword,#adCsConfirmPassword").on('keydown', function (eventOb) {
+    if (eventOb.key == "Tab") {
+        eventOb.preventDefault();
+    }
+});
+
+
+$("#adCustId,#adCustName,#adCustAddress,#adCustEmail,#adCustNic,#adCustDl,#adCustContact,#adCsUsername,#adCsPassword,#adCsConfirmPassword").on('blur', function () {
+    formValidAdminCustomer();
+});
+
+function formValidAdminCustomer() {
+    var adCsId = $("#adCustId").val();
+    if (regxAdCsID.test(adCsId)) {
+        $("#adCustId").css('border', '2px solid #eaecf4');
+        var adCsName = $("#adCustName").val();
+        if (regxAdCstName.test(adCsName)) {
+            $("#adCustName").css('border', '2px solid #eaecf4');
+            var adCsAddress = $("#adCustAddress").val();
+            if (regxAdCstAddress.test(adCsAddress)) {
+                $("#adCustAddress").css('border', '2px solid #eaecf4');
+                var adCsEmail = $("#adCustEmail").val();
+                if (regxAdCsEmail.test(adCsEmail)) {
+                    $("#adCustEmail").css('border', '2px solid #eaecf4');
+                    var adCsNIC = $("#adCustNic").val();
+                    if (regxAdCstNic.test(adCsNIC)) {
+                        $("#adCustNic").css('border', '2px solid #eaecf4');
+                        var adCsDL = $("#adCustDl").val();
+                        if (regxAdDrivingLicense.test(adCsDL)) {
+                            $("#adCustDl").css('border', '2px solid #eaecf4');
+                            var adCSContact= $("#adCustContact").val();
+                            if (regxAdContact.test(adCSContact)) {
+                                $("#adCustContact").css('border', '2px solid #eaecf4');
+                                var adCsUserName = $("#adCsUsername").val();
+                                if (regxAdCsUsername.test(adCsUserName)){
+                                    $("#adCsUsername").css('border', '2px solid #eaecf4');
+                                    var adCsPassword = $("#adCsPassword").val();
+                                    if (adCsPassword!=""){
+                                        var adCsConfirmPassword=$("#adCsConfirmPassword").val();
+                                        $("#adCsPassword").css('border', '2px solid #eaecf4');
+                                        if (adCsConfirmPassword=!""){
+                                            $("#adCsConfirmPassword").css('border', '2px solid #eaecf4');
+                                            return true;
+                                        }else {
+                                            $("#adCsConfirmPassword").css('border', '2px solid red');
+                                            return false;
+                                        }
+                                    }else {
+                                        $("#adCsPassword").css('border', '2px solid red');
+                                        return false;
+                                    }
+
+                                }else{
+                                    $("#adCsUsername").css('border', '2px solid red');
+                                    return false;
+                                }
+                            }else {
+                                $("#adCustContact").css('border', '2px solid red');
+                                return false;
+                            }
+                        }else {
+                            $("#adCustDl").css('border', '2px solid red');
+                            return false;
+                        }
+                    }else {
+                        $("#adCustNic").css('border', '2px solid red');
+                        return false;
+                    }
+                } else {
+                    $("#adCustEmail").css('border', '2px solid red');
+                    return false;
+                }
+            } else {
+                $("#adCustAddress").css('border', '2px solid red');
+                return false;
+            }
+
+        } else {
+            $("#adCustName").css('border', '2px solid red');
+            return false;
+        }
+    } else {
+        $("#adCustId").css('border', '2px solid red');
+        return false;
+    }
+}
+
+$("#adCustId").on('keyup', function (eventOb) {
+    setButtonAdminCustomer();
+    if (eventOb.key == "Enter") {
+        checkIfValidAdminCustomer();
+    }
+});
+$("#adCustName").on('keyup', function (eventOb) {
+    setButtonAdminCustomer();
+    if (eventOb.key == "Enter") {
+        checkIfValidAdminCustomer();
+    }
+});
+$("#adCustAddress").on('keyup', function (eventOb) {
+    setButtonAdminCustomer();
+    if (eventOb.key == "Enter") {
+        checkIfValidAdminCustomer();
+    }
+});
+$("#adCustEmail").on('keyup', function (eventOb) {
+    setButtonAdminCustomer();
+    if (eventOb.key == "Enter") {
+        checkIfValidAdminCustomer();
+    }
+});
+$("#adCustNic").on('keyup', function (eventOb) {
+    setButtonAdminCustomer();
+    if (eventOb.key == "Enter") {
+        checkIfValidAdminCustomer();
+    }
+});
+$("#adCustDl").on('keyup', function (eventOb) {
+    setButtonAdminCustomer();
+    if (eventOb.key == "Enter") {
+        checkIfValidAdminCustomer();
+    }
+});
+$("#adCustContact").on('keyup', function (eventOb) {
+    setButtonAdminCustomer();
+    if (eventOb.key == "Enter") {
+        checkIfValidAdminCustomer();
+    }
+});
+$("#adCsUsername").on('keyup', function (eventOb) {
+    setButtonAdminCustomer();
+    if (eventOb.key == "Enter") {
+        checkIfValidAdminCustomer();
+    }
+});
+$("#adCsPassword").on('keyup', function (eventOb) {
+    setButtonAdminCustomer();
+    if (eventOb.key == "Enter") {
+        checkIfValidAdminCustomer();
+    }
+});
+$("#adCsConfirmPassword").on('keyup', function (eventOb) {
+    setButtonAdminCustomer();
+    if (eventOb.key == "Enter") {
+        checkIfValidAdminCustomer();
+    }
+});
+
+function checkIfValidAdminCustomer() {
+    var cstId = $("#adCustId").val();
+    if (regxAdCsID.test(cstId)) {
+        $("#adCustName").focus();
+        var adCsName = $("#adCustName").val();
+        if (regxAdCstName.test(adCsName)) {
+            $("#adCustAddress").focus();
+            var adCsAddress = $("#adCustAddress").val();
+            if (regxAdCstAddress.test(adCsAddress)) {
+                $("#adCustEmail").focus();
+                var adCsEmail = $("#adCustEmail").val();
+                if (regxAdCsEmail.test(adCsEmail)) {
+                    $("#adCustNic").focus();
+                    var adCsNIC = $("#adCustNic").val();
+                    if (regxAdCstNic.test(adCsNIC)){
+                        $("#adCustDl").focus();
+                        var adCsDl = $("#adCustDl").val();
+                        if (regxAdDrivingLicense.test(adCsDl)){
+                            $("#adCustContact").focus();
+                            var adCsContact = $("#adCustContact").val();
+                            if (regxAdContact.test(adCsContact)){
+                                $("#adCsUsername").focus();
+                                var adCsUsername = $("#adCsUsername").val();
+                                if (regxAdCsUsername.test(adCsUsername)){
+                                    $("#adCsPassword").focus();
+                                    var adCsPassword = $("#adCsPassword").val();
+                                    if (adCsPassword!=""){
+                                        $("#adCsConfirmPassword").focus();
+                                        var adCsConfirmPassword = $("#adCsConfirmPassword").val();
+                                        if (adCsConfirmPassword!=""){
+
+                                        }else $("#adCsConfirmPassword").focus();
+                                    }else $("#adCsPassword").focus();
+                                }else $("#adCsUsername").focus();
+                            }else $("#adCustContact").focus();
+                        }else $("#adCustDl").focus();
+                    }else $("#adCustNic").focus();
+                } else {
+                    $("#adCustEmail").focus();
+                }
+            } else {
+                $("#adCustAddress").focus();
+            }
+        } else {
+            $("#adCustName").focus();
+        }
+    } else {
+        $("#adCustId").focus();
+    }
+}
+
+function setButtonAdminCustomer() {
+    let b = formValidAdminCustomer();
+    if (b) {
+        $("#btnAdminCustomerSave,#btnAdminCustomerUpdate").attr('disabled', false);
+    } else {
+        $("#btnAdminCustomerSave,#btnAdminCustomerUpdate").attr('disabled', true);
+    }
+}
 //End Admin Customer Validation Section
 
 function clearCustomerFields() {
