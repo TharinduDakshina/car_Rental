@@ -331,4 +331,30 @@ function getLastCarId() {
     });
 }
 
+function loadAllDriver() {
+    $('#tblDriverBody').empty();
+    $.ajax({
+        url: 'http://localhost:8080/BackEnd_war/driver',
+        method: 'GET',
+        async: false,
+        dataType: 'json',
+        success: function (res) {
+            let values = res.data;
+            for (i in values) {
+                let adminDriverId = values[i].driverID;
+                let adminDriverName = values[i].name;
+                let adminDriverNic = values[i].nic;
+                let adminDriverContact = values[i].contact;
+                let adminDriverEmail = values[i].email;
+                let adminDriverUsername = values[i].userName;
+                let adminDriverPassword = values[i].password;
+                let adminDriverStatus = values[i].available;
+
+                $('#tblDriverBody').append(`<tr><td>${adminDriverId}</td><td>${adminDriverName}</td><td>${adminDriverNic}</td><td>${adminDriverContact}</td><td>${adminDriverEmail}</td><td>${adminDriverStatus}</td></tr>`)
+            }
+
+            bindClickEventAdminDriver();
+        }
+    });
+}
 
