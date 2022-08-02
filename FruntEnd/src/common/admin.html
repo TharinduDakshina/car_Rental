@@ -806,6 +806,9 @@
                                                                name="contact">
                                                     </div>
                                                 </div>
+
+                                            </div>
+                                            <div class="form-row">
                                                 <div class="col">
                                                     <div class="form-group">
                                                         <label><strong>Email</strong></label>
@@ -816,19 +819,59 @@
                                                                name="email">
                                                     </div>
                                                 </div>
+                                                <div class="col">
+                                                    <div class="form-group">
+                                                        <label><strong>Status</strong></label>
+                                                        <input id="adDriverAvailable"
+                                                               class="form-control"
+                                                               type="text"
+                                                               placeholder="Driver.Status"
+                                                               disabled
+                                                               name="available">
+                                                    </div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="form-group">
+                                                        <label><strong>Username</strong></label>
+                                                        <input id="adDriverUsername"
+                                                               class="form-control"
+                                                               type="text"
+                                                               placeholder="Driver.Username"
+                                                               name="username">
+                                                    </div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="form-group">
+                                                        <label><strong>Password</strong></label>
+                                                        <input id="adDriverPassword"
+                                                               class="form-control"
+                                                               type="password"
+                                                               placeholder="***"
+                                                               name="password">
+                                                    </div>
+                                                </div>
+                                                <div class="col">
+                                                    <div class="form-group">
+                                                        <label><strong>Confirm Password</strong></label>
+                                                        <input id="adDriverConfirmPassword"
+                                                               class="form-control"
+                                                               type="password"
+                                                               placeholder="***"
+                                                               name="confirmPassword">
+                                                    </div>
+                                                </div>
                                             </div>
 
-
                                             <div class="form-group mb-2">
-                                                <button id="btnAdminDriverSave" class="btn  btn-sm" type="button">Save
+                                                <button style="background-color: #4f7a0b" id="btnAdminDriverSave" class="btn  btn-sm" type="button">Save
                                                 </button>
-                                                <button id="btnAdminDriverUpdate" class="btn  btn-sm" type="button">
+                                                <button  style="background-color: #db9008" id="btnAdminDriverUpdate" class="btn  btn-sm" type="button">
                                                     Update
                                                 </button>
-                                                <button id="btnAdminDriverDelete" class="btn  btn-sm" type="button">
+                                                <button style="background-color: red" id="btnAdminDriverDelete" class="btn  btn-sm" type="button">
                                                     Delete
                                                 </button>
-                                                <button id="btnAdminDriverGetAll" class="btn  btn-sm" type="button">
+                                                <button style="background-color: #3bae79" id="btnAdminDriverGetAll" class="btn  btn-sm" type="button">
                                                     Get
                                                     All
                                                 </button>
@@ -851,6 +894,7 @@
                                     <th scope="col">NIC</th>
                                     <th scope="col">Contact</th>
                                     <th scope="col">Email</th>
+                                    <th scope="col">Status</th>
                                 </tr>
                                 </thead>
                                 <tbody id="tblDriverBody">

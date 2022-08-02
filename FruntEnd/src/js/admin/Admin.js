@@ -164,7 +164,7 @@ $('#btn_DriverPage').click(function () {
         'display': 'none'
     });
     loadAllDriver();
-    getLastDriverId();
+    loadLastDriver()
 });
 
 $('#btn_OrderPage').click(function () {
@@ -330,32 +330,5 @@ function getLastCarId() {
 
     });
 }
-function getLastDriverId() {
-    $.ajax({
-        method: "get",
-        url: 'http://localhost:8080/GMA_Backend_war_exploded/v2/driver/lastDriverId',
-        async: false,
-        success: function (response) {
-            var data = response.data;
-            console.log("data" + data);
-            $('#adDriverId').val(data)
-            console.log($('#adDriverId').val());
-        }
 
-    });
-}
-function getCarRegNo() {
-    $.ajax({
-        method: "get",
-        url: 'http://localhost:8080/GMA_Backend_war_exploded/v2/car/lastCarRegNo',
-        async: false,
-        success: function (response) {
-            var data = response.data;
-            console.log("data" + data);
-            $('#adCarRegistration').val(data)
-            console.log($('#adCarRegistration').val());
-        }
-
-    });
-}
 

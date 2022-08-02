@@ -1,5 +1,6 @@
 package lk.spring.controller;
 
+import lk.spring.dto.CustomerDTO;
 import lk.spring.dto.DriverDTO;
 import lk.spring.service.DriverService;
 import lk.spring.util.ResponseUtil;
@@ -78,4 +79,5 @@ public class DriverController {
 
         return new  ResponseUtil(200,"0k",id);
     }
+
 }
