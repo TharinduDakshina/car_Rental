@@ -31,6 +31,14 @@ public class CarController {
         return new ResponseUtil(200,"Updated",null);
     }
 
+    @PutMapping(path = "{id}",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil updateCarStatus(@PathVariable String id){
+        System.out.println("status update 1");
+        carService.updateCarStatus(id);
+        System.out.println("status update 2");
+        return new ResponseUtil(200,"Updated Status",null);
+    }
+
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil getAllCars(){
         return new ResponseUtil(200,"Ok",carService.getAllCars());

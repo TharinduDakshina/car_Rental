@@ -9,6 +9,7 @@ public interface CarService {
 
     void saveCar(CarDTO dto);
     void updateCar(CarDTO dto);
+    void updateCarStatus(String id);
     void deleteCar(String id);
     int getCarCount();
     CarDTO searchCar(String id);

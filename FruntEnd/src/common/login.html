@@ -422,8 +422,8 @@
         <!--Start Customer Order Page-->
         <div style="display: none" id="custOrderPage" class="p-1">
             <div class="container-fluid mt-1">
-                <h3 class="text-dark mt-3 mb-4" style="left: 44%; position: relative">My Orders</h3>
-
+                <h3 class="text-dark mt-3 mb-4" style="left: 8%;position: relative;font-weight: bold;">My Order</h3>
+                <h4 id="date">10-15-2020</h4>
                 <div class="row p-2">
                     <div class="col-2">
                         <div class="form-group">
@@ -432,37 +432,38 @@
                                     id="custBookingID"
                                     class="form-control"
                                     type="text"
-                                    placeholder="B###"
-                                    name="id">
+                                    placeholder="B-0***"
+                                    disabled
+                                    name="bookingId">
                         </div>
                     </div>
 
                     <div class="col-2">
                         <div class="form-group">
                             <label class="mt-2" style="font-weight: bold;margin-right: 5px; margin-left: 10px">Driver</label>
-                            <input class="form-control" type="text" id="dId">
+                            <input class="form-control" type="text" disabled id="dId">
                         </div>
                     </div>
 
                     <div class="col-2 ">
                         <div class="form-group">
                             <label class="mt-2" style="font-weight: bold;margin-right: 5px; margin-left: 10px">Driver Name</label>
-                            <input class="form-control" type="text" id="dName">
+                            <input class="form-control" type="text" disabled id="dName">
                         </div>
                     </div>
 
                     <div class="col-2" style="margin-right:20px">
                         <div class="form-group">
                             <label class="mt-2 ml-2" style="font-weight: bold;">Car Id</label>
-                            <input class="form-control" type="text" placeholder="C-000*" id="carid">
+                            <input class="form-control" type="text" disabled placeholder="C-000*" id="carid">
                         </div>
                     </div>
 
 
                     <div class="col-2" style="margin-right:20px">
                         <div class="form-group">
-                            <label class="mt-2 ml-2 mr-3" style="font-weight: bold;position: relative;left: 2%;">Car Type</label>
-                            <input class="form-control" type="text" placeholder="Car Type" id="carType">
+                            <label class="mt-2 ml-2 mr-3" style="font-weight: bold;position: relative;left: 2%;">Car Brand</label>
+                            <input class="form-control" type="text" disabled placeholder="Car Type" id="carType">
                         </div>
                     </div>
 
@@ -481,6 +482,14 @@
                             <input class="form-control" type="date" id="returnDate">
                         </div>
                     </div>
+
+                    <label class="mt-2" style="font-weight: bold;margin-right: 5px; margin-left: 10px">Customer Id</label>
+                    <div class="col-2 ">
+                        <div class="form-inline">
+                            <input class="form-control" type="text" disabled id="ctId">
+                        </div>
+                    </div>
+
                 </div>
 
 

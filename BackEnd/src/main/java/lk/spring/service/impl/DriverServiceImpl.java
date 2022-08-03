@@ -99,7 +99,13 @@ public class DriverServiceImpl implements DriverService {
 
     @Override
     public DriverDTO getDriverRandom() {
-        return mapper.map(driverRepo.findAvailableDriverRandomly(),DriverDTO.class);
+        Driver randomly = driverRepo.findAvailableDriverRandomly();
+        if (randomly!=null) {
+            return mapper.map(randomly,DriverDTO.class);
+        }else {
+            throw new NullPointerException("All Drivers are not available");
+        }
+
     }
 
 }

@@ -196,6 +196,33 @@ function setButtonCustomer() {
 
 //End Customer Validation Section
 
+
+//start validation customerOrder
+
+function orderFormValidate(){
+    var cId=$("#carid").val()
+    var cType=$("#carType").val()
+
+    if (cId!=""&&cType!=""){
+        $("#btnPlaceOrder").attr('disabled', false);
+    }else {
+        $("#btnPlaceOrder").attr('disabled', true);
+    }
+}
+
+
+
+//End validation customerOrder
+
+
+
+
+
+
+
+
+
+
 function loadCustomer(customerId){
     loginCustomerId=customerId;
     $.ajax({
@@ -302,95 +329,259 @@ function loadAllCars() {
     });
 }
 
-//End Customer get all car Section
+
+function updateCustomerCarStatus(carId) {
+
+    let adminCarId ;
+    let adminCarBrand ;
+    let adminCarColor ;
+    let adminCarType ;
+    let adminCarPass ;
+    let adminCarTran ;
+    let adminCarFuel ;
+    let adminCarExKm ;
+    let adminCarStatus ;
+    let adminCarDam ;
+    let adminCarDalyRate ;
+    let adminCarMonthlyRate ;
+    let adminCarFreeKmD ;
+    let adminCarFreeKmM ;
+    let adminCarCompleteKm ;
+
+
+    $.ajax({
+        url: 'http://localhost:8080/BackEnd_war/car/'+carId,
+        method: 'GET',
+        async: false,
+        success: function (res) {
+            if (res.code == 200) {
+                 adminCarId =res.data.carID;
+                 adminCarBrand =res.data.brand;
+                 adminCarColor =res.data.colour;
+                 adminCarType =res.data.type;
+                 adminCarPass =res.data.numberOfPassengers;
+                 adminCarTran =res.data.transmissionType;
+                 adminCarFuel =res.data.fuelType;
+                 adminCarExKm =res.data.priceForExtraKM;
+                 adminCarStatus ="No";
+                 adminCarDam =res.data.lossDamageWaiver;
+                 adminCarDalyRate =res.data.dailyRate;
+                 adminCarMonthlyRate =res.data.monthlyRate;
+                 adminCarFreeKmD =res.data.freeKmforDay;
+                 adminCarFreeKmM =res.data.freeKmforMonth;
+                 adminCarCompleteKm =res.data.completeKm;
+            }else {
+                console.log(res.message);
+            }
+        },error:function (ob,textStatus,error){
+            console.log(error);
+            console.log(textStatus);
+        }
+    });
+
+
+//-----------------------------------------------------------------------
+    $.ajax({
+        url: 'http://localhost:8080/BackEnd_war/car',
+        method: 'PUT',
+        data: JSON.stringify({
+            "carID": adminCarId,
+            "brand": adminCarBrand,
+            "type": adminCarType,
+            "numberOfPassengers": adminCarPass,
+            "transmissionType": adminCarTran,
+            "fuelType": adminCarFuel,
+            "colour": adminCarColor,
+            "dailyRate": adminCarDalyRate,
+            "monthlyRate": adminCarMonthlyRate,
+            "freeKmforMonth": adminCarFreeKmM,
+            "freeKmforDay": adminCarFreeKmD,
+            "lossDamageWaiver": adminCarDam,
+            "priceForExtraKM": adminCarExKm,
+            "status": adminCarStatus,
+            "completeKm": adminCarCompleteKm
+        }),
+        async: false,
+        dataType: 'json',
+        contentType: "application/json",
+        success: function (res) {
+            if (res.code == 200) {
+                    alert("car status update");
+            }else {
+                console.log(res.message);
+            }
+        },error:function (ob,textStatus,error){
+            console.log(error);
+            console.log(textStatus);
+        }
+    });
+}
+
+function updateDriverStatus(drId) {
+    let adminDriverId ;
+    let adminDriverName ;
+    let adminDriverNic ;
+    let adminDriverContact ;
+    let adminDriverEmail ;
+    let adminDriverUsername ;
+    let adminDriverPassword ;
+
+    $.ajax({
+        url: 'http://localhost:8080/BackEnd_war/driver/'+drId,
+        method: 'GET',
+        async: false,
+        success: function (res) {
+            if (res.code == 200) {
+                 adminDriverId =res.data.driverID;
+                 adminDriverName =res.data.name;
+                 adminDriverNic =res.data.nic;
+                 adminDriverContact =res.data.contact;
+                 adminDriverEmail =res.data.email;
+                 adminDriverUsername =res.data.userName;
+                 adminDriverPassword =res.data.password;
+            }else {
+                console.log(res.message);
+            }
+        },error:function (ob,textStatus,error){
+            console.log(error);
+            console.log(textStatus);
+        }
+    });
+
+    //-----------------------------------------------------------------
+
+    $.ajax({
+        url: "http://localhost:8080/BackEnd_war/driver",
+        method: "PUT",
+        data: JSON.stringify({
+            "driverID": adminDriverId,
+            "name": adminDriverName,
+            "contact": adminDriverContact,
+            "nic": adminDriverNic,
+            "email": adminDriverEmail,
+            "userName": adminDriverUsername,
+            "password": adminDriverPassword,
+            "available": true
+        }),
+        dataType: 'Json',
+        contentType: "application/json",
+        success: function (res) {
+            if (res.code == 200) {
+                console.log("Driver update success");
+            }else {
+                alert(res.message);
+            }
+        },
+        error: function (ob, textStatus, error) {
+            alert(textStatus);
+        }
+    });
+}
 
 //Start Customer PlaceOrder Section
 $('#btnPlaceOrder').click(function () {
 
-    var today = new Date();
-    var dd = String(today.getDate()).padStart(2, '0');
-    var mm = String(today.getMonth() + 1).padStart(2, '0');
-    var yyyy = today.getFullYear();
-    today = mm + '-' + dd + '-' + yyyy;
+    let currentDate = $("#date").text();
+    let bookingId = $("#custBookingID").val();
+    let pickDate=$("#pickUpDate").val();
+    let returnDate=$("#returnDate").val();
+    let carBrand=$("#carType").val();
+    let csID=$("#ctId").val();
+    let carId=$("#carid").val();
+    let drId=$("#dId").val();
 
-    let pickupDate = $('#pickUpDate').val();
-    let returnDate = $('#returnDate').val();
-    let cusID = "C001";
-    let driverId = "D001";
-    let carid = "CR001";
-    let bookingId = "B001";
-    let customer;
-    let car;
-    let driver;
+    var customerDTO;
+    var carDTO;
+    var driverDTO;
 
     $.ajax({
-        method: 'GET',
-        url: 'http://localhost:8080/GMA_Backend_war_exploded/v2/customer/' + cusID,
+        url:"http://localhost:8080/BackEnd_war/customer/"+csID,
+        method:"GET",
         async: false,
-        success: function (res) {
-            customer = res.data;
-        }
-    });
-
-    $.ajax({
-        method: 'GET',
-        url: 'http://localhost:8080/GMA_Backend_war_exploded/v2/car/' + carid,
-        async: false,
-        success: function (res) {
-            car = res.data;
-        }
-    });
-
-    $.ajax({
-        method: 'GET',
-        url: 'http://localhost:8080/GMA_Backend_war_exploded/v2/driver/' + driverId,
-        async: false,
-        success: function (res) {
-            driver = res.data;
-        }
-    });
-
-    console.log(customer);
-    console.log(car);
-    console.log(driver);
-
-    $.ajax({
-        method: 'POST',
-        url: 'http://localhost:8080/GMA_Backend_war_exploded/v2/booking',
-        data: JSON.stringify({
-            "bookingId": bookingId,
-            "bookingDate": today,
-            "bookingPickDate": pickupDate,
-            "bookingStatus": "Ordered",
-            "bookingNote": "normal",
-            "bookingReturnDate": returnDate,
-            "customerId": cusID,
-            "carId": carid,
-            "driverId": driverId
-        }),
-        async: false,
-        dataType: 'Json',
-        contentType: "application/json; charset=utf-8",
-        success: function (res) {
-            if (res.message == 'Success') {
-                alert('Booking successFul..!');
-                $("#tblOrderBody").empty();
-                clearOrderPage();
-                getBookingID();
+        success:function (resCustomer){
+            if (resCustomer.code == 200) {
+                customerDTO=resCustomer.data;
+                console.log("customer Ok");
+            }else {
+                alert(resCustomer.message);
             }
         }
     });
+
+    $.ajax({
+        url:"http://localhost:8080/BackEnd_war/car/"+carId,
+        method:"GET",
+        async: false,
+        success:function (resCar){
+            if (resCar.code == 200) {
+                carDTO=resCar.data;
+                console.log("car Ok");
+            }else {
+                alert(resCar.message);
+            }
+        }
+    });
+
+    $.ajax({
+        url:"http://localhost:8080/BackEnd_war/driver/"+drId,
+        method:"GET",
+        async: false,
+        success:function (resDriver){
+            if (resDriver.code == 200) {
+                driverDTO=resDriver.data;
+                console.log("driver Ok");
+            }else {
+                alert(resDriver.message);
+            }
+        }
+    });
+
+    if (confirm("Do you want to " + carBrand + " Car Booking ") == true) {
+        console.log(bookingId);
+        console.log(drId);
+        $.ajax({
+            url: "http://localhost:8080/BackEnd_war/booking",
+            method: 'POST',
+            data: JSON.stringify({
+                "bookingID": bookingId,
+                "date": currentDate,
+                "pickupDate": pickDate,
+                "returnDate": returnDate,
+                "status": "Pending",
+                "customer": customerDTO,
+                "car": carDTO,
+                "driver": driverDTO
+            }),
+            dataType: 'Json',
+            async: false,
+            contentType: "application/json",
+            success: function (res) {
+                if (res.code == 200) {
+                    alert("Your Booking Successful .");
+                    clearOrderPage();
+                    updateCustomerCarStatus(carId);
+                    updateDriverStatus(drId)
+                    loadCarForCarOrders();
+                    getBookingID();
+                    loadDate();
+                    loadCustomerId();
+                    orderFormValidate();
+                    loadDriverRandom();
+                }else {
+                    alert(res.message);
+                }
+            },error:function (ob,textStatus,error){
+                console.log(textStatus);
+                console.log(error);
+            }
+        });
+    }
+
+
 });
 //End Customer PlaceOrder Section
 
-function clearOrderPage(){
-    $('#driver').val("");
-    $('#pickUpDate').val("");
-    $('#returnDate').val("");
-    $('#carType').val("");
-    $('#carid').val("");
 
-}
 
 
 $('#btnCustProfile').click(function () {
@@ -462,13 +653,14 @@ function loadCarForCarOrders() {
                                             <td>${status}</td>
                                             </tr>`);
                 }
-                bindClickEventCustomerCar();
+                bindClickEventCustomerOrder();
             }
 
         }
     });
 }
-function bindClickEventCustomerCar() {
+
+function bindClickEventCustomerOrder() {
 
    /* $("#tblOrderBody>tr").click(function (){
         $(this).children().css({"background-color":"#e3e6f0"});
@@ -494,6 +686,7 @@ function bindClickEventCustomerCar() {
         $('#adCustContact').val(contact);*/
 
        // $(this).children().css({"background-color":"rgb(141 207 249 / 48%)"});
+        orderFormValidate();
     });
 }
 
@@ -513,6 +706,9 @@ $('#btnCustOrders').click(function () {
     getBookingID();
     loadCarForCarOrders();
     loadDriverRandom();
+    loadDate();
+    loadCustomerId();
+    orderFormValidate();
 });
 $('#btnCustPay').click(function () {
     $('#custProfilePage').css({
@@ -597,9 +793,35 @@ function loadDriverRandom() {
             if (res.code == 200) {
              $("#dId").val(res.data.driverID);
              $("#dName").val(res.data.name);
-            }
+            }else alert(res.message);
         },error:function (ob,textStatus,error){
             console.log("Driver  randomly load error");
         }
     });
+}
+
+function loadCustomerId() {
+    $("#ctId").val(loginCustomerId);
+}
+
+function loadDate() {
+    var now = new Date();
+
+    var day = ("0" + now.getDate()).slice(-2);
+    var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+    var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+
+    $('#date').text(today);
+}
+
+
+function clearOrderPage(){
+    $("#ctId").val("");
+    $("#dId").val("");
+    $("#carid").val("");
+    $("#bookingId").val("");
+    $("#pickUpDate").val("");
+    $("#returnDate").val("");
+    $("#carType").val("");
 }

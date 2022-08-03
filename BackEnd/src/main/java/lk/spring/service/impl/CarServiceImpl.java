@@ -42,6 +42,17 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
+    public void updateCarStatus(String id) {
+        if (carRepo.existsById(id)) {
+            System.out.println("22222222222222222222");
+            carRepo.updateCarStatus("NO", id);
+            System.out.println("3333333333333333333333333333");
+        }else {throw new RuntimeException("Car is nor found in database");}
+    }
+
+
+
+    @Override
     public void deleteCar(String id) {
         if (carRepo.existsById(id)){
             carRepo.deleteById(id);

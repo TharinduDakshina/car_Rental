@@ -4,10 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +27,7 @@ public class Car {
     private double freeKmforDay;
     private double lossDamageWaiver;
     private double priceForExtraKM;
+    @Column(name = "")
     private String status;
     private double completeKm;
 
@@ -39,4 +37,10 @@ public class Car {
 
     @OneToMany(mappedBy = "car", cascade = CascadeType.ALL)
     private List<Maintaince> maintenance = new ArrayList<>();
+
+
+    public Car(String carID, String status) {
+        this.carID = carID;
+        this.status = status;
+    }
 }

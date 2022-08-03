@@ -15,7 +15,7 @@ public class BookingController{
     @Autowired
     BookingService bookingService;
 
-    @ResponseStatus(HttpStatus.CREATED)//201
+
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil saveBooking(@RequestBody BookingDTO booking){
         bookingService.saveBooking(booking);

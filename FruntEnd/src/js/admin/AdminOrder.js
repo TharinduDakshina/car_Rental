@@ -5,35 +5,34 @@ $('#btnOrdersRefresh').click(function () {
 function loadAllOrders() {
     $('#tblOrderBody').empty();
     $.ajax({
-        url: 'http://localhost:8080/GMA_Backend_war_exploded/v2/booking',
+        url: 'http://localhost:8080/BackEnd_war/booking',
         method: 'GET',
         async: false,
         dataType: 'json',
         success: function (res) {
             let values = res.data;
             for (i in values) {
-                let id = values[i].bookingId;
-                let date = values[i].bookingDate;
-                let note = values[i].bookingNote;
-                let pickdate = values[i].bookingPickDate;
-                let returndate = values[i].bookingReturnDate;
-                let status = values[i].bookingStatus;
-                let car = values[i].carId;
-                let customer = values[i].customerId;
-                let driver = values[i].driverId;
+                let id = values[i].bookingID;
+                let date = values[i].date;
+                let pickdate = values[i].pickupDate;
+                let returndate = values[i].returnDate;
+                let status = values[i].status;
+                let customer = values[i].customer.customerID;
+                let car = values[i].car.carID;
+                let driver = values[i].driver.driverID;
 
 
-                $('#tblOrderBody').append(`<tr><td>${id}</td>
-<td>${car}</td>
-<td>${customer}</td>
-<td>${driver}</td>
-<td>${date}</td>
-<td>${note}</td>
-<td>${pickdate}</td>
-<td>${returndate}</td>
-<td>${status}</td>
-
-</tr>`)
+                $('#tblOrderBody').append(`
+                    <tr><td>${id}</td>
+                    <td>${car}</td>
+                    <td>${customer}</td>
+                    <td>${driver}</td>
+                    <td>${date}</td>
+                    <td>${pickdate}</td>
+                    <td>${returndate}</td>
+                    <td>${status}</td>
+                    <td><button style="background-color: greenyellow;border-radius: 2px" class='editRow'>Accept</button></td>
+                    </tr>`)
             }
         }
     });

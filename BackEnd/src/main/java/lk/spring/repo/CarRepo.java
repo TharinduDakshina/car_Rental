@@ -10,4 +10,8 @@ public interface CarRepo extends JpaRepository<Car,String> {
     int totalCarCount();
 
     Car findTopByOrderByCarIDDesc();
+
+    @Query(value = "update car set status=?1 where carID=?2",nativeQuery = true)
+    void updateCarStatus(String cValue ,String id);
+
 }
