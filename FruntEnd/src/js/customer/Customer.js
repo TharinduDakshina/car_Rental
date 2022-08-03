@@ -224,87 +224,86 @@ function loadCustomer(customerId){
 //Start Customer Save Section
 $("#btnCustomerUpdate").click(() => {
 
-        let cId = $('#cstId').val();
-        let cName = $('#cstName').val();
-        let cAdd = $('#cstAddress').val();
-        let cEmail = $('#cstEmail').val();
-        let cNic = $('#cstNic').val();
-        let cDl = $('#cstDl').val();
-        let cContact = $('#cstContact').val();
-        let cPassword = $('#cstPassword').val();
-        let cUsername = $("#cstUsername").val();
-    console.log(cId);
-    console.log(cName);
-    console.log(cAdd);
-    console.log(cEmail);
-    console.log(cNic);
-    console.log(cDl);
-    console.log(cContact);
-    console.log(cPassword);
-    console.log(cUsername);
+    let cId = $('#cstId').val();
+    let cName = $('#cstName').val();
+    let cAdd = $('#cstAddress').val();
+    let cEmail = $('#cstEmail').val();
+    let cNic = $('#cstNic').val();
+    let cDl = $('#cstDl').val();
+    let cContact = $('#cstContact').val();
+    let cPassword = $('#cstPassword').val();
+    let cUsername = $("#cstUsername").val();
 
-        $.ajax({
-            url: "http://localhost:8080/BackEnd_war/customer",
-            method: "PUT",
-            data: JSON.stringify({
-                "customerID": cId,
-                "name": cName,
-                "contact": cContact,
-                "address": cAdd,
-                "email": cEmail,
-                "nicNo": cNic,
-                "drivingLicenceNo": cDl,
-                "userName": cUsername,
-                "password": cPassword
-            }),
-            dataType: 'Json',
-            contentType: "application/json",
-            success: function (res) {
-                if (res.code == 200) {
-                    alert("Successfully Updated..");
-                }else alert(res.message);
-            },
-            error: function (ob, textStatus, error) {
-                alert(error);
-            }
-        });
+
+
+    $.ajax({
+        url: "http://localhost:8080/BackEnd_war/customer",
+        method: "PUT",
+        data: JSON.stringify({
+            "customerID": cId,
+            "name": cName,
+            "contact": cContact,
+            "address": cAdd,
+            "email": cEmail,
+            "nicNo": cNic,
+            "drivingLicenceNo": cDl,
+            "userName": cUsername,
+            "password": cPassword
+        }),
+        dataType: 'Json',
+        contentType: "application/json",
+        success: function (res) {
+            if (res.code == 200) {
+                alert("Successfully Updated..");
+            } else alert(res.message);
+        },
+        error: function (ob, textStatus, error) {
+            alert(error);
+        }
+    });
 });
 //End Customer Save Section
 
 //Start Customer get all car Section
-$('#btnCarsRefresh').click(function () {
+/*$('#btnCarsRefresh').click(function () {
     loadAllCars();
-});
+});*/
 
 function loadAllCars() {
     $('#tblCarBody').empty();
     $.ajax({
-        url: 'http://localhost:8080/GMA_Backend_war_exploded/v2/car',
+        url: 'http://localhost:8080/BackEnd_war/car',
         method: 'GET',
         async: false,
         dataType: 'json',
         success: function (res) {
-            let values = res.data;
-            for (i in values) {
-                let adminCarId = values[i].carId;
-                let adminCarBrand = values[i].carBrand;
-                let adminCarPass = values[i].carNmbOfPassengers;
-                let adminCarTran = values[i].carTransmissionType;
-                let adminCarType = values[i].carType;
-                let adminCarColor = values[i].carColour;
-                let adminCarFuel = values[i].carFuelType;
+            if (res.code == 200) {
+                let values = res.data;
+                for (i in values) {
+                    let carId = values[i].carID;
+                    let carBrand = values[i].brand;
+                    let carPass = values[i].numberOfPassengers;
+                    let carTran = values[i].transmissionType;
+                    let carType = values[i].type;
+                    let carColor = values[i].colour;
+                    let carFuel = values[i].fuelType;
+                    let carDailyRent = values[i].dailyRate;
+                    let carMonthlyRent = values[i].monthlyRate;
 
-                $('#tblCarBody').append(`<tr>
-                                            <td>${adminCarId}</td>
-                                            <td>${adminCarBrand}</td>
-                                            <td>${adminCarPass}</td>
-                                            <td>${adminCarTran}</td>
-                                            <td>${adminCarType}</td>
-                                            <td>${adminCarColor}</td>
-                                            <td>${adminCarFuel}</td>
-                                       
-                                            </tr>`)
+                    $('#tblCustomerCarBody').append(`<tr>
+                                            <td>${carId}</td>
+                                            <td>${carBrand}</td>
+                                            <td>${carPass}</td>
+                                            <td>${carTran}</td>
+                                            <td>${carType}</td>
+                                            <td>${carColor}</td>
+                                            <td>${carFuel}</td>
+                                            <td>${carDailyRent}</td>
+                                            <td>${carMonthlyRent}</td>
+                                            </tr>`);
+                }
             }
+
         }
     });
 }
@@ -427,6 +426,7 @@ $('#btnCustCars').click(function () {
     $('#customer_Pay_Page').css({
         'display': 'none'
     });
+    loadAllCars();
 });
 $('#btnCustOrders').click(function () {
     $('#custProfilePage').css({

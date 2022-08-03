@@ -365,7 +365,7 @@ $('#btnAdminCarSave').click(() => {
             success: function (res) {
                 if (res.code == 200) {
                     alert("Car successfully added .");
-                    loadAllCars();
+                    loadAllAdminCars();
                     clearCarFields();
                     getLastCarId();
                 }else {
@@ -381,10 +381,10 @@ $('#btnAdminCarSave').click(() => {
 
 //Start Get All Car
 $('#btnAdminCarGetAll').click(function () {
-    loadAllCars();
+    loadAllAdminCars();
     clearCarFields();
 });
-function loadAllCars() {
+function loadAllAdminCars() {
     $('#tblCarBody').empty();
     $.ajax({
         url: 'http://localhost:8080/BackEnd_war/car',
@@ -491,7 +491,7 @@ function updateCar() {
         success: function (res) {
             if (res.code == 200) {
                 alert("Car successfully Update .");
-                loadAllCars();
+                loadAllAdminCars();
                 clearCarFields();
                 getLastCarId();
             }else {
@@ -517,7 +517,7 @@ $('#btnAdminCarDelete').click(function () {
                 success: function (response) {
                     if (response.data = 200) {
                         alert("Car deleted successfully .");
-                        loadAllCars();
+                        loadAllAdminCars();
                         clearCarFields();
                         getLastCarId();
                     }

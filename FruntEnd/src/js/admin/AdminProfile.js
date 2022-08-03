@@ -1,3 +1,57 @@
+/*$("#adminChangePitcher").click(function (){
+    $("#filedId").click();
+
+    var data=new FormData();
+    let file=$("#filedId")[0].files[0];
+    let fileName = $("#filedId")[0].files[0].name;
+    data.append("myFile",file,fileName);
+
+    $.ajax({
+        url:"http://localhost:8080/BackEnd_war/api/v1/upload",
+        method: 'post',
+        async: true,
+        contentType: false,
+        processData: false,
+        data: data,
+        success: function (resp) {
+            alert("Successfully Uploaded");
+            loadTheLastUploadedImage();
+        },
+        error: function (err) {
+            console.log(err);
+        }
+    });
+
+});
+
+function loadTheLastUploadedImage(){
+    let baseUrl="http://localhost:8080/BackEnd_war/";
+    $.ajax({
+        url:baseUrl+"api/v1/upload",
+        method: 'get',
+        dataType: 'json',
+        success: function (resp) {
+            let url = resp[resp.length - 1];
+
+
+            $("#display").css({
+                "background": `url(${baseUrl + url})`,
+                "background-size": "cover",
+                "height": "300px"
+            });
+
+            for (let i in resp) {
+                let row = `<tr><td><img src="${baseUrl + resp[i]}" width="100px"></td></tr>`;
+                $("#table").append(row);
+            }
+
+        },
+        error: function (err) {
+            console.log(err);
+        }
+    });
+}*/
+
 var adminId;
 {
     getAdmin();

@@ -1,31 +1,3 @@
-/*
-$("#adminChangePitcher").click(function (){
-    $("#filedId").click();
-
-    var data=new FormData();
-    let file=$("#filedId")[0].files[0];
-    let fileName=$("#filedId")[0].files[0].name;
-    data.append("myFile",file,fileName);
-
-    $.ajax({
-        url: baseUrl + "api/v1/upload",
-        method: 'post',
-        async: true,
-        contentType: false,
-        processData: false,
-        data: data,
-        success: function (resp) {
-            alert("Successfully Uploaded");
-            loadTheLastUploadedImage();
-        },
-        error: function (err) {
-            console.log(err);
-        }
-    });
-
-});
-*/
-
 //$("#adminNameInHeader").val(adminUserName);
 
 $(document).ready(function () {
@@ -136,7 +108,7 @@ $('#btn_CarPage').click(function () {
     $('#admin_Payment_Page').css({
         'display': 'none'
     });
-    loadAllCars();
+    loadAllAdminCars();
     getLastCarId();
 
 });
