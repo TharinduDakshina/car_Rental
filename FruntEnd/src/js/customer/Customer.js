@@ -202,25 +202,27 @@ function setButtonCustomer() {
 function orderFormValidate(){
     var cId=$("#carid").val()
     var cType=$("#carType").val()
+    var pickerDate=$("#pickUpDate").val()
+    var returnDate=$("#returnDate").val()
 
-    if (cId!=""&&cType!=""){
+    if (cId!=""&&cType!=""&&returnDate!=""&&pickerDate!=""){
         $("#btnPlaceOrder").attr('disabled', false);
     }else {
         $("#btnPlaceOrder").attr('disabled', true);
     }
 }
 
+$("#pickUpDate").click(function (){
+    orderFormValidate();
+});
+
+$("#returnDate").click(()=>{
+    orderFormValidate();
+});
+
 
 
 //End validation customerOrder
-
-
-
-
-
-
-
-
 
 
 function loadCustomer(customerId){
@@ -819,9 +821,10 @@ function loadDate() {
 function clearOrderPage(){
     $("#ctId").val("");
     $("#dId").val("");
+    $("#dName").val("");
     $("#carid").val("");
+    $("#carType").val("");
     $("#bookingId").val("");
     $("#pickUpDate").val("");
     $("#returnDate").val("");
-    $("#carType").val("");
 }

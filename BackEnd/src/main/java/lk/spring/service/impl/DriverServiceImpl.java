@@ -93,7 +93,6 @@ public class DriverServiceImpl implements DriverService {
     @Override
     public int getDriverCount() {
         int i = driverRepo.totalDriverCount();
-        System.out.println("Booking ->"+i);
         return i;
     }
 

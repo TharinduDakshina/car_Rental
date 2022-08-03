@@ -2,10 +2,12 @@ $('#btnOrdersRefresh').click(function () {
     loadAllOrders();
 });
 
+
+
 function loadAllOrders() {
     $('#tblOrderBody').empty();
     $.ajax({
-        url: 'http://localhost:8080/BackEnd_war/booking',
+        url: 'http://localhost:8080/BackEnd_war/booking/admin/order/status',
         method: 'GET',
         async: false,
         dataType: 'json',
@@ -25,16 +27,25 @@ function loadAllOrders() {
                 $('#tblOrderBody').append(`
                     <tr><td>${id}</td>
                     <td>${car}</td>
-                    <td>${customer}</td>
                     <td>${driver}</td>
+                    <td>${customer}</td>
                     <td>${date}</td>
                     <td>${pickdate}</td>
                     <td>${returndate}</td>
                     <td>${status}</td>
-                    <td><button style="background-color: greenyellow;border-radius: 2px" class='editRow'>Accept</button></td>
+                    <td><button  style="background-color: greenyellow;border-radius: 2px" class='editRow'>Accept</button></td>
                     </tr>`)
             }
+
+            bindClickEventAdminOrder();
         }
     });
+}
 
+function bindClickEventAdminOrder() {
+    $("#tblOrderBody>tr").click(function () {
+         $(this).children().eq(8).children().eq(0).onclick()
+             alert("fuck");
+
+    });
 }

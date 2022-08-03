@@ -251,7 +251,7 @@ function getCarCount() {
 }
 function getOrderCount() {
     $.ajax({
-        url: 'http://localhost:8080/BackEnd_war/booking?countBooking=001',
+        url: 'http://localhost:8080/BackEnd_war/booking/countBooking/booking',
         method: "get",
         async: true,
         success: function (response) {

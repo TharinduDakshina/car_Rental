@@ -13,4 +13,5 @@ public interface BookingService {
     int countBookingAmount();
     List<BookingDTO> getAllBooking();
     BookingDTO findLastBookingById();
+    List<BookingDTO> getAllBookingStatusPending();
 }

@@ -55,8 +55,7 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public int countBookingAmount() {
-        int i = bookingRepo.totalBookingAmount();
-        return i;
+        return bookingRepo.totalBookingAmount();
     }
 
     @Override
@@ -72,5 +71,12 @@ public class BookingServiceImpl implements BookingService {
         }else{
             return mapper.map(bookingRepo.findTopByOrderByBookingIDDesc(), BookingDTO.class);
         }
+    }
+
+    @Override
+    public List<BookingDTO> getAllBookingStatusPending() {
+        List<Booking> pendingList = bookingRepo.findByStatus("Pending");
+        return mapper.map(pendingList, new TypeToken<List<BookingDTO>>() {
+        }.getType());
     }
 }

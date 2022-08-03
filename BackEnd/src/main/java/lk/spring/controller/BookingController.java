@@ -38,7 +38,7 @@ public class BookingController{
         return new ResponseUtil(200,"Ok",bookingService.searchBooking(id));
     }
 
-    @GetMapping(params = "{countBooking}",produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "{countBooking}/{booking}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil getBookingCountCount(){
         return new ResponseUtil(200,"Ok",bookingService.countBookingAmount());
     }
@@ -70,5 +70,10 @@ public class BookingController{
         }
 
         return new  ResponseUtil(200,"0k",id);
+    }
+
+    @GetMapping(path = "{admin}/{order}/{status}")
+    public ResponseUtil getAdminAccessBooking(@PathVariable String admin, @PathVariable String order, @PathVariable String status){
+        return new ResponseUtil(200,"Ok",bookingService.getAllBookingStatusPending());
     }
 }
