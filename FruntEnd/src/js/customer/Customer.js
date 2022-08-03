@@ -1,7 +1,5 @@
 var loginCustomerId;
 
-
-
 //Start Customer Validation Section
 let regxCstName = /^[A-z ]{3,20}$/;
 let regxEmail = /^[a-zA-Z0-9.! #$%&'*+/=? ^_`{|}~-]+@[a-zA-Z0-9-.]+(?:\. [a-zA-Z0-9-]+)*$/;
@@ -264,13 +262,8 @@ $("#btnCustomerUpdate").click(() => {
 });
 //End Customer Save Section
 
-//Start Customer get all car Section
-/*$('#btnCarsRefresh').click(function () {
-    loadAllCars();
-});*/
-
 function loadAllCars() {
-    $('#tblCarBody').empty();
+    $('#tblCustomerCarBody').empty();
     $.ajax({
         url: 'http://localhost:8080/BackEnd_war/car',
         method: 'GET',
@@ -282,24 +275,25 @@ function loadAllCars() {
                 for (i in values) {
                     let carId = values[i].carID;
                     let carBrand = values[i].brand;
-                    let carPass = values[i].numberOfPassengers;
-                    let carTran = values[i].transmissionType;
-                    let carType = values[i].type;
-                    let carColor = values[i].colour;
-                    let carFuel = values[i].fuelType;
-                    let carDailyRent = values[i].dailyRate;
-                    let carMonthlyRent = values[i].monthlyRate;
+                    let nubOfPassengers = values[i].numberOfPassengers;
+                    let carDaliFreeKm = values[i].freeKmforDay;
+                    let priceExtraKm = values[i].priceForExtraKM;
+                    let carMonthlyFreeKm = values[i].freeKmforMonth;
+                    let damageWaiver = values[i].lossDamageWaiver;
+                    let status = values[i].status;
+                    let completeKm = values[i].completeKm;
+
 
                     $('#tblCustomerCarBody').append(`<tr>
                                             <td>${carId}</td>
                                             <td>${carBrand}</td>
-                                            <td>${carPass}</td>
-                                            <td>${carTran}</td>
-                                            <td>${carType}</td>
-                                            <td>${carColor}</td>
-                                            <td>${carFuel}</td>
-                                            <td>${carDailyRent}</td>
-                                            <td>${carMonthlyRent}</td>
+                                            <td>${nubOfPassengers}</td>
+                                            <td>${priceExtraKm}</td>
+                                            <td>${carDaliFreeKm}</td>
+                                            <td>${carMonthlyFreeKm}</td>
+                                            <td>${damageWaiver}</td>
+                                            <td>${status}</td>
+                                            <td>${completeKm}</td>
                                             </tr>`);
                 }
             }
@@ -413,6 +407,9 @@ $('#btnCustProfile').click(function () {
         'display': 'none'
     });
 });
+
+
+
 $('#btnCustCars').click(function () {
     $('#custProfilePage').css({
         'display': 'none'
@@ -427,7 +424,79 @@ $('#btnCustCars').click(function () {
         'display': 'none'
     });
     loadAllCars();
+
 });
+
+function loadCarForCarOrders() {
+    $('#tblOrderBody').empty();
+    $.ajax({
+        url: 'http://localhost:8080/BackEnd_war/car',
+        method: 'GET',
+        async: false,
+        dataType: 'json',
+        success: function (res) {
+            if (res.code == 200) {
+                let values = res.data;
+                for (i in values) {
+                    let carId = values[i].carID;
+                    let carBrand = values[i].brand;
+                    let carPass = values[i].numberOfPassengers;
+                    let carTran = values[i].transmissionType;
+                    let carType = values[i].type;
+                    let carColor = values[i].colour;
+                    let carFuel = values[i].fuelType;
+                    let carDailyRent = values[i].dailyRate;
+                    let carMonthlyRent = values[i].monthlyRate;
+                    let status = values[i].status;
+
+                    $('#tblOrderBody').append(`<tr>
+                                            <td>${carId}</td>
+                                            <td>${carBrand}</td>
+                                            <td>${carPass}</td>
+                                            <td>${carTran}</td>
+                                            <td>${carType}</td>
+                                            <td>${carColor}</td>
+                                            <td>${carFuel}</td>
+                                            <td>${carDailyRent}</td>
+                                            <td>${carMonthlyRent}</td>
+                                            <td>${status}</td>
+                                            </tr>`);
+                }
+                bindClickEventCustomerCar();
+            }
+
+        }
+    });
+}
+function bindClickEventCustomerCar() {
+
+   /* $("#tblOrderBody>tr").click(function (){
+        $(this).children().css({"background-color":"#e3e6f0"});
+    });*/
+
+    $("#tblOrderBody>tr").click(function () {
+        //Get values from the selected row
+        let id = $(this).children().eq(0).text();
+        let carType = $(this).children().eq(1).text();
+        /*let name = $(this).children().eq(2).text();
+        let address = $(this).children().eq(3).text();
+        let email = $(this).children().eq(4).text();
+        let dl = $(this).children().eq(5).text();
+        let contact = $(this).children().eq(6).text();*/
+
+        //Set values to the text-fields
+        $('#carid').val(id);
+        $('#carType').val(carType);
+       /* $('#adCustAddress').val(address);
+        $('#adCustEmail').val(email);
+        $('#adCustNic').val(nic);
+        $('#adCustDl').val(dl);
+        $('#adCustContact').val(contact);*/
+
+       // $(this).children().css({"background-color":"rgb(141 207 249 / 48%)"});
+    });
+}
+
 $('#btnCustOrders').click(function () {
     $('#custProfilePage').css({
         'display': 'none'
@@ -442,6 +511,8 @@ $('#btnCustOrders').click(function () {
         'display': 'none'
     });
     getBookingID();
+    loadCarForCarOrders();
+    loadDriverRandom();
 });
 $('#btnCustPay').click(function () {
     $('#custProfilePage').css({
@@ -460,45 +531,7 @@ $('#btnCustPay').click(function () {
 //Start Search Customer Section
 
 //End Search Customer Section
-//Start Customer Update
-$('#btnAdminCustomerUpdate').click(() => {
-    updateCustomer();
-});
-function updateCustomer() {
-    if (checkValidationAdminCustomer()) {
-        let custId = $('#custId').val();
-        let custName = $('#custName').val();
-        let custAdd = $('#custAddress').val();
-        let custEmail = $('#custEmail').val();
-        let custNic = $('#custNic').val();
-        let custDl = $('#custDl').val();
-        let custContact = $('#custContact').val();
-        let custPassword = $('#custPassword').val();
 
-        $.ajax({
-            method: "put",
-            url: "http://localhost:8080/GMA_Backend_war_exploded/v2/customer",
-            contentType: "application/json",
-            async: false,
-            data: JSON.stringify(
-                {
-                    "customerId": custId,
-                    "customerName": custName,
-                    "customerAddress": custAdd,
-                    "customerEmail": custEmail,
-                    "customerNIC": custNic,
-                    "customerDrivingLIC": custDl,
-                    "customerContact": custContact
-                    // "password":custPassword
-                }
-            ),
-            success: function (data) {
-                return true;
-            }
-        });
-    }
-}
-//End Customer Update
 function searchCustomerCar() {
     let bookingId = $('#custBookingID').val();
     let id = $("#carid").val();
@@ -539,23 +572,34 @@ function searchCustomerCar() {
     } else {
     }
 }
-// function total(){
-//
-// }
-
 
 function getBookingID() {
     $.ajax({
+        url: 'http://localhost:8080/BackEnd_war/booking?bookingId=0000',
         method: "get",
-        url: 'http://localhost:8080/GMA_Backend_war_exploded/v2/booking/getBookingLastID',
         async: false,
         success: function (response) {
-            var data = response.data;
-            console.log("data" + data);
-            $('#custBookingID').val(data)
-            console.log($('#custBookingID').val());
+            if (response.code == 200) {
+                $('#custBookingID').val(response.data)
+            }else console.log(response.code);
+        },error:function(ob,textStatus,error) {
+            console.log(textStatus);
         }
-
     });
 }
 
+function loadDriverRandom() {
+    console.log("Driver load");
+    $.ajax({
+        url:"http://localhost:8080/BackEnd_war/driver/0000/randomDriver",
+        method:"GET",
+        success:function (res){
+            if (res.code == 200) {
+             $("#dId").val(res.data.driverID);
+             $("#dName").val(res.data.name);
+            }
+        },error:function (ob,textStatus,error){
+            console.log("Driver  randomly load error");
+        }
+    });
+}

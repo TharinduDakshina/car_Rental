@@ -401,12 +401,12 @@
                                 <th scope="col">ID</th>
                                 <th scope="col">Brand</th>
                                 <th scope="col">No Of Passengers</th>
-                                <th scope="col">Transmission</th>
-                                <th scope="col">Car Type</th>
-                                <th scope="col">Color</th>
-                                <th scope="col">Fuel Type</th>
-                                <th scope="col">Daily Rate</th>
-                                <th scope="col">Monthly Rate</th>
+                                <th scope="col">Price for Extra Km</th>
+                                <th scope="col">Daily Free Km</th>
+                                <th scope="col">Monthly Free Km</th>
+                                <th scope="col">Damage Waiver</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Complete Km</th>
                             </tr>
                             </thead>
                             <tbody id="tblCustomerCarBody">
@@ -424,10 +424,10 @@
             <div class="container-fluid mt-1">
                 <h3 class="text-dark mt-3 mb-4" style="left: 44%; position: relative">My Orders</h3>
 
-                <div class="row">
+                <div class="row p-2">
                     <div class="col-2">
                         <div class="form-group">
-                            <label><strong>Bokking ID</strong></label>
+                            <label style="font-weight: bold;margin-right: 5px; margin-left: 10px">Booking ID</label>
                             <input
                                     id="custBookingID"
                                     class="form-control"
@@ -436,44 +436,54 @@
                                     name="id">
                         </div>
                     </div>
-                </div>
-                <div class="row">
+
                     <div class="col-2">
-                        <select class="custom-select mb-3" id="driverOrder">
-                            <option selected>Driver</option>
-                            <option value="DR-001">D-001</option>
-                        </select>
+                        <div class="form-group">
+                            <label class="mt-2" style="font-weight: bold;margin-right: 5px; margin-left: 10px">Driver</label>
+                            <input class="form-control" type="text" id="dId">
+                        </div>
                     </div>
-                    <label class="mt-2" style="margin-right: 5px; margin-left: 10px">Pickup Date</label>
+
+                    <div class="col-2 ">
+                        <div class="form-group">
+                            <label class="mt-2" style="font-weight: bold;margin-right: 5px; margin-left: 10px">Driver Name</label>
+                            <input class="form-control" type="text" id="dName">
+                        </div>
+                    </div>
+
+                    <div class="col-2" style="margin-right:20px">
+                        <div class="form-group">
+                            <label class="mt-2 ml-2" style="font-weight: bold;">Car Id</label>
+                            <input class="form-control" type="text" placeholder="C-000*" id="carid">
+                        </div>
+                    </div>
+
+
+                    <div class="col-2" style="margin-right:20px">
+                        <div class="form-group">
+                            <label class="mt-2 ml-2 mr-3" style="font-weight: bold;position: relative;left: 2%;">Car Type</label>
+                            <input class="form-control" type="text" placeholder="Car Type" id="carType">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row p-2">
+                    <label class="mt-2" style="font-weight: bold;margin-right: 5px; margin-left: 10px">Pickup Date</label>
                     <div class="col-2">
                         <div class="form-inline">
                             <input class="form-control" type="date" id="pickUpDate">
                         </div>
                     </div>
 
-                    <label class="mt-2" style="margin-right: 5px;">Return Date</label>
+                    <label class="mt-2 ml-3" style="font-weight: bold;margin-right: 5px;">Return Date</label>
                     <div class="col-2 " style="margin-right: 10px">
                         <div class="form-inline">
                             <input class="form-control" type="date" id="returnDate">
                         </div>
                     </div>
-
-                    <div class="col-2" style="margin-right:20px">
-                        <select class="custom-select mb-3" id="carType">
-                            <option selected>Car Type</option>
-                            <option value="General">General</option>
-                            <option value="Premium">Premium</option>
-                            <option value="Luxury">Luxury</option>
-                        </select>
-                    </div>
-
-                    <div class="col-2">
-                        <div style="width: 100%; text-align: right">
-                            <input class="form-control" type="text" placeholder="CR###" id="carid"
-                                   onkeypress="searchCustomerCar(this);">
-                        </div>
-                    </div>
                 </div>
+
+
 
 
                 <div class="table-box p-1" style="height: auto; overflow: no-display">
@@ -488,6 +498,9 @@
                                 <th scope="col">Car Type</th>
                                 <th scope="col">Color</th>
                                 <th scope="col">Fuel Type</th>
+                                <th scope="col">Daily Rate</th>
+                                <th scope="col">Monthly Rate</th>
+                                <th scope="col">Status</th>
                             </tr>
                             </thead>
                             <tbody id="tblOrderBody">

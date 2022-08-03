@@ -97,5 +97,9 @@ public class DriverServiceImpl implements DriverService {
         return i;
     }
 
+    @Override
+    public DriverDTO getDriverRandom() {
+        return mapper.map(driverRepo.findAvailableDriverRandomly(),DriverDTO.class);
+    }
 
 }

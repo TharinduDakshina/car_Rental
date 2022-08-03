@@ -80,4 +80,8 @@ public class DriverController {
         return new  ResponseUtil(200,"0k",id);
     }
 
+    @GetMapping(path = "{id}/{name}")
+    public ResponseUtil getRandomDriver(@PathVariable String id, @PathVariable String name){
+        return new ResponseUtil(200,"ok",driverService.getDriverRandom());
+    }
 }

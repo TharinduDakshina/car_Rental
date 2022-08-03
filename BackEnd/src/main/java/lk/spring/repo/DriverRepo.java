@@ -12,4 +12,7 @@ public interface DriverRepo extends JpaRepository<Driver,String> {
     Driver findByUserName(String userName);
     @Query(value = "select count(*) from Driver",nativeQuery = true)
     int totalDriverCount();
+
+    @Query(value = "select * from driver where available=false order by  RAND() LIMIT 1;",nativeQuery = true)
+    Driver findAvailableDriverRandomly();
 }

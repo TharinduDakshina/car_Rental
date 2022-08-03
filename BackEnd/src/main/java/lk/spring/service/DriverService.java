@@ -1,6 +1,5 @@
 package lk.spring.service;
 
-import lk.spring.dto.CustomerDTO;
 import lk.spring.dto.DriverDTO;
 
 
@@ -15,6 +14,7 @@ public interface DriverService {
     List<DriverDTO> getAllDrivers();
     DriverDTO findLastDriverById();
     int getDriverCount();
+    DriverDTO getDriverRandom();
 
 
 

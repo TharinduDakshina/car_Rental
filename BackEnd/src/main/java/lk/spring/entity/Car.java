@@ -18,7 +18,6 @@ import java.util.List;
 public class Car {
     @Id
     private String carID;
-    //    private String registrationNumber;
     private String brand;
     private String type;
     private int numberOfPassengers;
@@ -27,8 +26,6 @@ public class Car {
     private String colour;
     private double dailyRate;
     private double monthlyRate;
-    //    private double freeMillagePrice;
-//    private String freeMillageDuration;
     private double freeKmforMonth;
     private double freeKmforDay;
     private double lossDamageWaiver;
