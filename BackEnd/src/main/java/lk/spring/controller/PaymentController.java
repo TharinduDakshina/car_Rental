@@ -40,7 +40,7 @@ public class PaymentController {
         return new ResponseUtil(200,"Ok",paymentService.searchPayment(id));
     }
 
-    @DeleteMapping(path = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(path = "{id}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil deletePayments(@PathVariable String id){
         paymentService.deletePayment(id);
         return new ResponseUtil(200,"Deleted",null);

@@ -39,11 +39,11 @@ public class BookingController{
     }
 
     @GetMapping(path = "{countBooking}/{booking}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseUtil getBookingCountCount(){
+    public ResponseUtil getBookingCountCount(@PathVariable String booking, @PathVariable String countBooking){
         return new ResponseUtil(200,"Ok",bookingService.countBookingAmount());
     }
 
-    @DeleteMapping(path = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(path = "{id}",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseUtil deleteBooking(@PathVariable String id){
         bookingService.deleteBooking(id);
         return new ResponseUtil(200,"Deleted",null);

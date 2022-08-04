@@ -408,7 +408,7 @@ function updateCustomerCarStatus(carId) {
         contentType: "application/json",
         success: function (res) {
             if (res.code == 200) {
-                console.log("car status update")
+                console.log("car status update");
             }else {
                 console.log(res.message);
             }

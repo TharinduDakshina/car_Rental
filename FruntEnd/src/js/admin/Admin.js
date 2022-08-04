@@ -164,6 +164,7 @@ $('#btn_OrderPage').click(function () {
     loadAllOrders();
 });
 
+
 $('#btn_PaymentPage').click(function () {
     $('#admin_Home_Page').css({
         'display': 'none'
@@ -186,6 +187,7 @@ $('#btn_PaymentPage').click(function () {
     $('#admin_Payment_Page').css({
         'display': 'block'
     });
+    loadPaymentsTable();
 });
 
 $('#btnAdminProfile').click(function () {
@@ -330,3 +332,25 @@ function loadAllDriver() {
     });
 }
 
+function loadPaymentsTable() {
+    $('#tblPayment').empty();
+    $.ajax({
+        url: 'http://localhost:8080/BackEnd_war/payment',
+        method: 'GET',
+        async: false,
+        dataType: 'json',
+        success: function (res) {
+            let values = res.data;
+            for (i in values) {
+                let paymentID = values[i].paymentID;
+                let date = values[i].date;
+                let amount = values[i].amount;
+                let description = values[i].description;
+                let booking = values[i].booking.bookingID;
+                $('#tblPayment').append(`<tr><td>${paymentID}</td><td>${date}</td><td>${amount}</td><td>${description}</td><td>${booking}</td></tr>`)
+            }
+
+            bindClickEventAdminDriver();
+        }
+    });
+}

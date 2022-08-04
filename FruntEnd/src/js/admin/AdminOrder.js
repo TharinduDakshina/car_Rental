@@ -238,7 +238,7 @@ function updateCarAdminOrder(cId) {
         contentType: "application/json",
         success: function (res) {
             if (res.code == 200) {
-                alert("car status update");
+                console.log("car status update")
             }else {
                 console.log(res.message);
             }
@@ -354,14 +354,7 @@ function paymentSetData(pickDate,returnDate,cId,bId) {
         }
     });
 
-    console.log("carDalyRent : "+carDalyRent);
-    console.log("carMonthlyRent : "+carMonthlyRent);
-    console.log("1-> : "+pYear);
-    console.log("2-> : "+pMonth);
-    console.log("3-> : "+pDay);
-    console.log("4r-> : "+rYear);
-    console.log("5r-> : "+rMonth);
-    console.log("6r-> : "+rDay);
+
 
     var amount=payment(totalAmount,pYear,rYear,rMonth,pMonth,rDay,pDay,carDalyRent,carMonthlyRent);
 
@@ -400,6 +393,8 @@ function paymentSetData(pickDate,returnDate,cId,bId) {
 
 }
 
+
+
 function bindClickEventAdminOrder() {
     let bId;
     let dId;
@@ -419,22 +414,77 @@ function bindClickEventAdminOrder() {
     $('#tblOrderBody').on('click', "#adminAcceptBtn", function () {
         if (confirm("Do you want to confirm this Order ?") == true) {
 
-            let x=pickDate.split("-")[0];
-            let y=pickDate.split("-")[1];
-            let z=parseInt(pickDate.split("-")[2]);
-
-
-
             updateBookingAdminOrder(bId);
             paymentSetData(pickDate,returnDate,cId,bId);
-            //updateDriverAdminOrder(dId);
-            //updateCarAdminOrder(cId);
             loadAllOrders();
             alert(bId+" this is booking updated successful .");
         }
     });
 
     $('#tblOrderBody').on('click', "#adminRejectBtn", function () {
-            alert("reject");
+        if (confirm("Are you sure reject " + bId + " booking ?") == true) {
+            updateDriverAdminOrder(dId);
+            updateCarAdminOrder(cId);
+            rejectedBooking(bId);
+            loadAllOrders();
+        }
+    });
+}
+
+function rejectedBooking(bId) {
+    let id ;
+    let date;
+    let pickDate ;
+    let returnDate ;
+    let status ;
+    let customer ;
+    let car ;
+    let driver ;
+
+
+    $.ajax({
+        url: "http://localhost:8080/BackEnd_war/booking/"+bId,
+        method:"GET",
+        async: false,
+        success:function (res){
+            if (res.constructor = 200) {
+                id =res.data.bookingID;
+                date=res.data.date;
+                pickDate =res.data.pickupDate;
+                returnDate =res.data.returnDate;
+                status ="Rejected";
+                customer =res.data.customer;
+                car =res.data.car;
+                driver =res.data.driver;
+            }
+        }
+    });
+//----------------------------------------------------------------------------------------
+    $.ajax({
+        url: "http://localhost:8080/BackEnd_war/booking",
+        method: 'PUT',
+        data: JSON.stringify({
+            "bookingID": id,
+            "date": date,
+            "pickupDate": pickDate,
+            "returnDate": returnDate,
+            "status": status,
+            "customer": customer,
+            "car": car,
+            "driver": driver
+        }),
+        dataType: 'Json',
+        async: false,
+        contentType: "application/json",
+        success: function (resBooking) {
+            if (resBooking.code == 200) {
+                //alert(bId+" this is booking updated successful .");
+            }else {
+                alert(resBooking.message);
+            }
+        },error:function (ob,textStatus,error){
+            console.log(textStatus);
+            console.log(error);
+        }
     });
 }
