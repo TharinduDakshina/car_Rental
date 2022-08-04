@@ -1,5 +1,6 @@
 package lk.spring.service;
 
+import lk.spring.dto.BookingDTO;
 import lk.spring.dto.PaymentDTO;
 
 import java.util.List;
@@ -10,4 +11,5 @@ public interface PaymentService {
     void updatePayment(PaymentDTO dto);
     PaymentDTO searchPayment(String id);
     List<PaymentDTO> getAllPayments();
+    PaymentDTO findLastPaymentById();
 }

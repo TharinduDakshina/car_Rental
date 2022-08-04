@@ -249,7 +249,154 @@ function updateCarAdminOrder(cId) {
     });
 }
 
-function payment() {
+function payment(totalAmount,pYear,rYear,rMonth,pMonth,rDay,pDay,carDalyRent,carMonthlyRent) {
+    //paymentLogic
+    if (pYear==rYear){
+        console.log("1");
+        if (rMonth==pMonth){
+            console.log("2");
+            if (rDay==pDay){
+                console.log("3");
+                totalAmount+=carDalyRent;
+            }else {
+                console.log("4");
+                totalAmount+=carDalyRent*(rDay-pDay);
+            }
+        }else if (rMonth>pMonth){
+            console.log("4");
+            totalAmount+=carMonthlyRent*(rMonth-pMonth);
+        }else {
+            console.log("5");
+            totalAmount+=0;
+            alert("This order has date range is invalided");
+        }
+    }else {
+        console.log("6");
+        totalAmount+=0;
+        alert("This order has date range is invalided");
+    }
+    return totalAmount;
+}
+
+function paymentSetData(pickDate,returnDate,cId,bId) {
+    let pYear=parseInt(pickDate.split("-")[0]);
+    let pMonth=parseInt(pickDate.split("-")[1]);
+    let pDay=parseInt(pickDate.split("-")[2]);
+
+    let rYear=parseInt(returnDate.split("-")[0]);
+    let rMonth=parseInt(returnDate.split("-")[1]);
+    let rDay=parseInt(returnDate.split("-")[2]);
+
+    var now = new Date();
+    var day = ("0" + now.getDate()).slice(-2);
+    var month = ("0" + (now.getMonth() + 1)).slice(-2);
+    var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
+
+
+
+    var carDalyRent;
+    var carMonthlyRent;
+    var paymentId;
+    var totalAmount=0.00;
+
+    var bookingDTO;
+
+    $.ajax({
+        url: 'http://localhost:8080/BackEnd_war/payment?paymentId=P-000',
+        method: 'GET',
+        async: false,
+        success: function (resPaymentId) {
+            if (resPaymentId.code == 200) {
+                paymentId=resPaymentId.data;
+            }else {
+                console.log(resPaymentId.message);
+            }
+        },error:function (ob,textStatus,error){
+            console.log(error);
+            console.log(textStatus);
+        }
+    });
+
+    //--------------------------Load BookingDTO---------------------------------------------
+
+    $.ajax({
+        url: "http://localhost:8080/BackEnd_war/booking/"+bId,
+        method:"GET",
+        async: false,
+        success:function (res){
+            if (res.constructor = 200) {
+                bookingDTO=res.data;
+            }else {
+                console.log(res.message);
+            }
+        },error:function (ob,texStatus,error){
+            console.log(texStatus);
+        }
+    });
+
+
+    //--------------------------------------------------------------------------------------
+
+    $.ajax({
+        url: 'http://localhost:8080/BackEnd_war/car/'+cId,
+        method: 'GET',
+        async: false,
+        success: function (resCar) {
+            if (resCar.code == 200) {
+                carDalyRent=parseInt(resCar.data.dailyRate);
+                carMonthlyRent=parseInt(resCar.data.monthlyRate);
+            }else {
+                console.log(resCar.message);
+            }
+        },error:function (ob,textStatus,error){
+            console.log(error);
+            console.log(textStatus);
+        }
+    });
+
+    console.log("carDalyRent : "+carDalyRent);
+    console.log("carMonthlyRent : "+carMonthlyRent);
+    console.log("1-> : "+pYear);
+    console.log("2-> : "+pMonth);
+    console.log("3-> : "+pDay);
+    console.log("4r-> : "+rYear);
+    console.log("5r-> : "+rMonth);
+    console.log("6r-> : "+rDay);
+
+    var amount=payment(totalAmount,pYear,rYear,rMonth,pMonth,rDay,pDay,carDalyRent,carMonthlyRent);
+
+    if (amount!=0){
+        $.ajax({
+           url:"http://localhost:8080/BackEnd_war/payment",
+           method:"POST",
+            data: JSON.stringify({
+                "paymentID":paymentId,
+                "date":today,
+                "amount":amount,
+                "description":"Payment success",
+                "booking":bookingDTO
+            }),
+            async: false,
+            dataType: 'json',
+            contentType: "application/json",
+            success:function (resPayment){
+                if (resPayment.code = 200) {
+                    console.log("payment table added data");
+                }else {
+                    console.log(resPayment.message);
+                }
+            },error:function (ob,textStatus,error){
+                console.log(error);
+                console.log(textStatus);
+            }
+        });
+    }
+
+
+    console.log("amount : "+amount);
+
+
+
 
 }
 
@@ -257,20 +404,32 @@ function bindClickEventAdminOrder() {
     let bId;
     let dId;
     let cId;
+    let pickDate;
+    let returnDate;
+
     $("#tblOrderBody>tr").click(function (){
         bId = $(this).children().eq(0).text();
         cId = $(this).children().eq(1).text();
         dId = $(this).children().eq(2).text();
+        pickDate = $(this).children().eq(5).text();
+        returnDate = $(this).children().eq(6).text();
     });
 
 
     $('#tblOrderBody').on('click', "#adminAcceptBtn", function () {
         if (confirm("Do you want to confirm this Order ?") == true) {
+
+            let x=pickDate.split("-")[0];
+            let y=pickDate.split("-")[1];
+            let z=parseInt(pickDate.split("-")[2]);
+
+
+
             updateBookingAdminOrder(bId);
-            payment();
+            paymentSetData(pickDate,returnDate,cId,bId);
             //updateDriverAdminOrder(dId);
             //updateCarAdminOrder(cId);
-
+            loadAllOrders();
             alert(bId+" this is booking updated successful .");
         }
     });

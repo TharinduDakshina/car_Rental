@@ -1,5 +1,6 @@
 package lk.spring.service.impl;
 
+import lk.spring.dto.BookingDTO;
 import lk.spring.dto.PaymentDTO;
 import lk.spring.entity.Payment;
 import lk.spring.repo.PaymentRepo;
@@ -60,5 +61,14 @@ public class PaymentServiceImpl implements PaymentService {
     public List<PaymentDTO> getAllPayments() {
         return mapper.map(paymentRepo.findAll(), new TypeToken<List<PaymentDTO>>() {
         }.getType());
+    }
+
+    @Override
+    public PaymentDTO findLastPaymentById() {
+        if (paymentRepo.findTopByOrderByPaymentIDDesc()==null){
+            return null;
+        }else{
+            return mapper.map(paymentRepo.findTopByOrderByPaymentIDDesc(), PaymentDTO.class);
+        }
     }
 }
