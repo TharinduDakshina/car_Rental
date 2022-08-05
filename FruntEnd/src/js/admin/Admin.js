@@ -110,7 +110,7 @@ $('#btn_CarPage').click(function () {
     });
     loadAllAdminCars();
     getLastCarId();
-
+    $("#btnAdminCarSave,#btnAdminCarUpdate").attr('disabled', true);
 });
 
 $('#btn_DriverPage').click(function () {

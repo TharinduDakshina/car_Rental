@@ -1,8 +1,8 @@
-/*//Start Admin Car Validation Section
+//Start Admin Car Validation Section
 let regxAdCarID = /^(C-)[0-9]{1,4}$/
 let regxAdCartStatus = /^(OK|ok|oK|Ok|NO|no|On|oN|No)$/;
-let regxAmount = /^\d{0,12}(\.\d{1,2})?$/;
-let regxAmountKm = /^\d{0,4}(\.\d{1,2})?$/;
+let regxAmount = /^\d{1,12}(\.\d{1,2})?$/;
+let regxAmountKm = /^\d{1,4}(\.\d{1,2})?$/;
 
 $("#adCarId,#adCarBrand,#adCarColor,#adCarType,#adCarPassengers,#adCarTransmission,#adCarFuel,#adCarExtraKm,#adCarStatus,#adCarDamage,#adCarDailyRate,#adCarMonthlyRate,#adCarFreeKmDay,#adCarFreeKmMonthly,#adCarCompleteKm").on('keydown', function (eventOb) {
     if (eventOb.key == "Tab") {
@@ -14,114 +14,67 @@ $("#adCarId,#adCarBrand,#adCarColor,#adCarType,#adCarPassengers,#adCarTransmissi
     formValidAdminCar();
 });
 
+
+
 function formValidAdminCar() {
     var adCarId = $("#adCarId").val();
     if (regxAdCarID.test(adCarId)) {
-        $("#adCarId").css('border', '2px solid #eaecf4');
-        var adCarBrand1= $("#adCarBrand").val();
-        console.log(adCarBrand1);
-        var adCarBrand = $("#adCarBrand :selected").text();
-        if (adCarBrand1!="" && $("#adCarBrand :selected").text() && adCarBrand1!="Car Brand") {
-            $("#adCarBrand").css('border', '2px solid #eaecf4');
-            var adCarColor1= $("#adCarColor").val();
-            var adCarColor = $("#adCarColor option:selected").text();
-            if ((adCarColor1!="" && adCarColor!="Car Color")||adCarColor1!="Car Color") {
-                $("#adCarColor").css('border', '2px solid #eaecf4');
-                var adCarType1= $("#adCarType").val();
-                var adCarType = $("#adCarType option:selected").text();
-                if (adCarType1!="" && adCarType!="Car Type"||adCarType1!="Car Type") {
-                    $("#adCarType").css('border', '2px solid #eaecf4');
-                    var adCarPassenger1= $("#adCarPassengers").val();
-                    var adCarPassenger = $("#adCarPassengers option:selected").text();
-                    if (adCarPassenger1!="" && adCarPassenger!="Passengers"||adCarPassenger1!="Passengers") {
-                        $("#adCarPassengers").css('border', '2px solid #eaecf4');
-                        var adCarTransition1= $("#adCarTransmission").val();
-                        var adCarTransition = $("#adCarTransmission option:selected").text();
-                        if (adCarTransition1!="" && adCarTransition!="Transmission"||adCarTransition1!="Transmission") {
-                            $("#adCarTransmission").css('border', '2px solid #eaecf4');
-                            var adCarFuelType1= $("#adCarFuel").val();
-                            var adCarFuelType = $("#adCarFuel option:selected").text();
-                            if (adCarFuelType1!="" && adCarFuelType!="Fuel"||adCarFuelType1!="Fuel") {
-                                $("#adCarFuel").css('border', '2px solid #eaecf4');
-                                var adCarExrKm = $("#adCarExtraKm").val();
-                                if (regxAmount.test(adCarExrKm)){
-                                    $("#adCarExtraKm").css('border', '2px solid #eaecf4');
-                                    var adCarStatus = $("#adCarStatus").val();
-                                    if (regxAdCartStatus.test(adCarStatus)){
-                                        $("#adCarStatus").css('border', '2px solid #eaecf4');
-                                        var adCarDamage= $("#adCarDamage").val();
-                                        if (regxAmount.test(adCarDamage)){
-                                            $("#adCarDamage").css('border', '2px solid #eaecf4');
-                                            var adCarDalyRate= $("#adCarDailyRate").val();
-                                            if (regxAmount.test(adCarDalyRate)){
-                                                $("#adCarDailyRate").css('border', '2px solid #eaecf4');
-                                                var adCarMonthlyRate= $("#adCarMonthlyRate").val();
-                                                if (regxAmount.test(adCarMonthlyRate)){
-                                                    $("#adCarMonthlyRate").css('border', '2px solid #eaecf4');
-                                                    var adCarDalyKm= $("#adCarFreeKmDay").val();
-                                                    if (regxAmountKm.test(adCarDalyKm)){
-                                                        $("#adCarFreeKmDay").css('border', '2px solid #eaecf4');
-                                                        var adCarMonthlyKm= $("#adCarFreeKmMonthly").val();
-                                                        if (regxAmountKm.test(adCarMonthlyKm)){
-                                                            $("#adCarFreeKmMonthly").css('border', '2px solid #eaecf4');
-                                                            var adCarCompleteKm= $("#adCarCompleteKm").val();
-                                                            if (regxAmountKm.test(adCarCompleteKm)){
-                                                                $("#adCarCompleteKm").css('border', '2px solid #eaecf4');
-                                                                return true;
-                                                            }else {
-                                                                $("#adCarCompleteKm").css('border', '2px solid red');
-                                                                return false;
-                                                            }
-                                                        }else {
-                                                            $("#adCarFreeKmMonthly").css('border', '2px solid red');
-                                                            return false;
-                                                        }
-                                                    }else {
-                                                        $("#adCarFreeKmDay").css('border', '2px solid red');
-                                                        return false;
-                                                    }
-                                                }else {
-                                                    $("#adCarMonthlyRate").css('border', '2px solid red');
-                                                    return false;
-                                                }
-                                            }else {
-                                                $("#adCarDailyRate").css('border', '2px solid red');
-                                                return false;
-                                            }
-                                        }else {
-                                            $("#adCarDamage").css('border', '2px solid red');
-                                            return false;
-                                        }
-                                    }else {
-                                        $("#adCarStatus").css('border', '2px solid red');
+        $("#adCarId").css('border', "2px solid #eaecf4");
+        var adCarExrKm = $("#adCarExtraKm").val();
+        if (regxAmount.test(adCarExrKm)) {
+            $("#adCarExtraKm").css('border', '2px solid #eaecf4');
+            var adCarStatus = $("#adCarStatus").val();
+            if (regxAdCartStatus.test(adCarStatus)) {
+                $("#adCarStatus").css('border', '2px solid #eaecf4');
+                var adCarDamage = $("#adCarDamage").val();
+                if (regxAmount.test(adCarDamage)) {
+                    $("#adCarDamage").css('border', '2px solid #eaecf4');
+                    var adCarDalyRate = $("#adCarDailyRate").val();
+                    if (regxAmount.test(adCarDalyRate)) {
+                        $("#adCarDailyRate").css('border', '2px solid #eaecf4');
+                        var adCarMonthlyRate = $("#adCarMonthlyRate").val();
+                        if (regxAmount.test(adCarMonthlyRate)) {
+                            $("#adCarMonthlyRate").css('border', '2px solid #eaecf4');
+                            var adCarDalyKm = $("#adCarFreeKmDay").val();
+                            if (regxAmountKm.test(adCarDalyKm)) {
+                                $("#adCarFreeKmDay").css('border', '2px solid #eaecf4');
+                                var adCarMonthlyKm = $("#adCarFreeKmMonthly").val();
+                                if (regxAmountKm.test(adCarMonthlyKm)) {
+                                    $("#adCarFreeKmMonthly").css('border', '2px solid #eaecf4');
+                                    var adCarCompleteKm = $("#adCarCompleteKm").val();
+                                    if (regxAmountKm.test(adCarCompleteKm)) {
+                                        $("#adCarCompleteKm").css('border', '2px solid #eaecf4');
+                                        return true;
+                                    } else {
+                                        $("#adCarCompleteKm").css('border', '2px solid red');
                                         return false;
                                     }
-                                }else{
-                                    $("#adCarExtraKm").css('border', '2px solid red');
+                                } else {
+                                    $("#adCarFreeKmMonthly").css('border', '2px solid red');
                                     return false;
                                 }
-                            }else {
-                                $("#adCarFuel").css('border', '2px solid red');
+                            } else {
+                                $("#adCarFreeKmDay").css('border', '2px solid red');
                                 return false;
                             }
-                        }else {
-                            $("#adCarTransmission").css('border', '2px solid red');
+                        } else {
+                            $("#adCarMonthlyRate").css('border', '2px solid red');
                             return false;
                         }
-                    }else {
-                        $("#adCarPassengers").css('border', '2px solid red');
+                    } else {
+                        $("#adCarDailyRate").css('border', '2px solid red');
                         return false;
                     }
                 } else {
-                    $("#adCarType").css('border', '2px solid red');
+                    $("#adCarDamage").css('border', '2px solid red');
                     return false;
                 }
             } else {
-                $("#adCarColor").css('border', '2px solid red');
+                $("#adCarStatus").css('border', '2px solid red');
                 return false;
             }
         } else {
-            $("#adCarBrand").css('border', '2px solid red');
+            $("#adCarExtraKm").css('border', '2px solid red');
             return false;
         }
     } else {
@@ -130,177 +83,97 @@ function formValidAdminCar() {
     }
 }
 
-$("#adCarId").on('keyup', function (eventOb) {
-    setButtonAdminCar();
-    if (eventOb.key == "Enter") {
-        checkIfValidAdminCar();
-    }
-});
-$("#adCarBrand").on('keyup', function (eventOb) {
-    setButtonAdminCar();
-    if (eventOb.key == "Enter") {
-        checkIfValidAdminCar();
-    }
-});
-$("#adCarColor").on('keyup', function (eventOb) {
-    setButtonAdminCar();
-    if (eventOb.key == "Enter") {
-        checkIfValidAdminCar();
-    }
-});
-$("#adCarType").on('keyup', function (eventOb) {
-    setButtonAdminCar();
-    if (eventOb.key == "Enter") {
-        checkIfValidAdminCar();
-    }
-});
-$("#adCarPassengers").on('keyup', function (eventOb) {
-    setButtonAdminCar();
-    if (eventOb.key == "Enter") {
-        checkIfValidAdminCar();
-    }
-});
-$("#adCarTransmission").on('keyup', function (eventOb) {
-    setButtonAdminCar();
-    if (eventOb.key == "Enter") {
-        checkIfValidAdminCar();
-    }
-});
-$("#adCarFuel").on('keyup', function (eventOb) {
-    setButtonAdminCar();
-    if (eventOb.key == "Enter") {
-        checkIfValidAdminCar();
-    }
-});
-$("#adCarExtraKm").on('keyup', function (eventOb) {
-    setButtonAdminCar();
-    if (eventOb.key == "Enter") {
-        checkIfValidAdminCar();
-    }
-});
-$("#adCarStatus").on('keyup', function (eventOb) {
-    setButtonAdminCar();
-    if (eventOb.key == "Enter") {
-        checkIfValidAdminCar();
-    }
-});
-$("#adCarDamage").on('keyup', function (eventOb) {
-    setButtonAdminCar();
-    if (eventOb.key == "Enter") {
-        checkIfValidAdminCar();
-    }
-});
-$("#adCarDailyRate").on('keyup', function (eventOb) {
-    setButtonAdminCar();
-    if (eventOb.key == "Enter") {
-        checkIfValidAdminCar();
-    }
-});
-$("#adCarMonthlyRate").on('keyup', function (eventOb) {
-    setButtonAdminCar();
-    if (eventOb.key == "Enter") {
-        checkIfValidAdminCar();
-    }
-});
-$("#adCarFreeKmDay").on('keyup', function (eventOb) {
-    setButtonAdminCar();
-    if (eventOb.key == "Enter") {
-        checkIfValidAdminCar();
-    }
-});
-$("#adCarFreeKmMonthly").on('keyup', function (eventOb) {
-    setButtonAdminCar();
-    if (eventOb.key == "Enter") {
-        checkIfValidAdminCar();
-    }
-});
-$("#adCarCompleteKm").on('keyup', function (eventOb) {
-    setButtonAdminCar();
-    if (eventOb.key == "Enter") {
-        checkIfValidAdminCar();
-    }
-});
 
-
-function checkIfValidAdminCar() {
-    var adCarId = $("#adCarId").val();
-    if (regxAdCarID.test(adCarId)) {
-        $("#adCarBrand").focus();
-        var adCarBrand = $("#adCarBrand option:selected").text();
-        if (adCarBrand!="" || adCarBrand!="Car Brand") {
-            $("#adCarColor").focus();
-            var adCarColor = $("#adCarColor option:selected").text();
-            if (adCarColor!="" || adCarColor!="Car Color") {
-                $("#adCarType").focus();
-                var adCarType = $("#adCarType option:selected").text();
-                if (adCarType!="" || adCarType!="Type") {
-                    $("#adCarPassengers").focus();
-                    var adCarPassenger = $("#adCarPassengers option:selected").text();
-                    if (adCarPassenger!="" || adCarPassenger!="Passengers"){
-                        $("#adCarTransmission").focus();
-                        var adCarTransmission = $("#adCarTransmission option:selected").text();
-                        if (adCarTransmission!="" || adCarTransmission!="Transmission"){
-                            $("#adCarFuel").focus();
-                            var adCarFuelType = $("#adCarFuel option:selected").text();
-                            if (adCarFuelType!="" || adCarFuelType!="Transmission"){
-                                $("#adCarExtraKm").focus();
-                                var adCarExtraKm = $("#adCarExtraKm").val();
-                                if (regxAmount.test(adCarExtraKm)){
-                                    $("#adCarStatus").focus();
-                                    var adCarStatus = $("#adCarStatus").val();
-                                    if (regxAdCartStatus.test(adCarStatus)){
-                                        $("#adCarDamage").focus();
-                                        var adCarDamage = $("#adCarDamage").val();
-                                        if (regxAmount.test(adCarDamage)){
-                                            $("#adCarDailyRate").focus();
-                                            var adCarDalyRate = $("#adCarDailyRate").val();
-                                            if (regxAmount.test(adCarDalyRate)){
-                                                $("#adCarMonthlyRate").focus();
-                                                var adCarMonthlyRate = $("#adCarMonthlyRate").val();
-                                                if (regxAmount.test(adCarMonthlyRate)){
-                                                    $("#adCarFreeKmDay").focus();
-                                                    var adCarDayFreeKm = $("#adCarFreeKmDay").val();
-                                                    if (regxAmountKm.test(adCarDayFreeKm)){
-                                                        $("#adCarFreeKmMonthly").focus();
-                                                        var adCarMonthlyFreeKm = $("#adCarFreeKmMonthly").val();
-                                                        if (regxAmountKm.test(adCarMonthlyFreeKm)){
-                                                            $("#adCarCompleteKm").focus();
-                                                            var adCarCompleteKm = $("#adCarCompleteKm").val();
-                                                            if (regxAmountKm.test(adCarCompleteKm)){
-                                                                console.log("Success Focus");
-                                                            }else $("#adCarCompleteKm").focus();
-                                                        }else $("#adCarFreeKmMonthly").focus();
-                                                    }else $("#adCarFreeKmDay").focus();
-                                                }else $("#adCarMonthlyRate").focus();
-                                            }else $("#adCarDailyRate").focus();
-                                        }else $("#adCarDamage").focus();
-                                    }else $("#adCarStatus").focus();
-                                }else $("#adCarExtraKm").focus();
-                            }else $("#adCarFuel").focus();
-                        }else $("#adCarTransmission").focus();
-                    }else $("#adCarPassengers").focus();
-                } else {
-                    $("#adCarType").focus();
-                }
-            } else {
-                $("#adCarColor").focus();
-            }
-        } else {
-            $("#adCarBrand").focus();
-        }
-    } else {
-        $("#adCarId").focus();
-    }
+function isEmty() {
+    if ($("#adCarBrand option:selected").text()!=""&&$("#adCarBrand option:selected").text()!="Car Brand"){
+        if ($("#adCarColor option:selected").text()!=""&&$("#adCarColor option:selected").text()!="Car Color"){
+            if ($("#adCarType option:selected").text()!=""&&$("#adCarType option:selected").text()!="Car Type"){
+                if ($("#adCarPassengers option:selected").text()!=""&&$("#adCarPassengers option:selected").text()!="Passengers"){
+                    if ($("#adCarTransmission option:selected").text()!=""&&$("#adCarTransmission option:selected").text()!="Transmission"){
+                        if ($("#adCarFuel option:selected").text()!=""&&$("#adCarFuel option:selected").text()!="Fuel"){
+                            return true;
+                        }else return false;
+                    }else return false;
+                }else return false;
+            }else return false;
+        }else return false;
+    }else return false;
 }
 
-function setButtonAdminCar() {
-    let b = formValidAdminCar();
-    if (b) {
+$("#adCarFuel").on('click', function (eventOb) {
+    setCarButton();
+});
+
+
+$("#adCarTransmission").on('click', function (eventOb) {
+    setCarButton();
+});
+
+$("#adCarPassengers").on('click', function (eventOb) {
+    setCarButton();
+});
+
+$("#adCarType").on('click', function (eventOb) {
+    setCarButton();
+});
+
+$("#adCarColor").on('click', function (eventOb) {
+    setCarButton();
+});
+
+$("#adCarBrand").on('click', function (eventOb) {
+    setCarButton();
+});
+
+$("#adCarId").on('keyup', function (eventOb) {
+    setCarButton();
+});
+
+$("#adCarExtraKm").on('keyup', function (eventOb) {
+    setCarButton();
+});
+
+$("#adCarStatus").on('keyup', function (eventOb) {
+    setCarButton();
+});
+
+$("#adCarDamage").on('keyup', function (eventOb) {
+    setCarButton();
+});
+
+$("#adCarDailyRate").on('keyup', function (eventOb) {
+    setCarButton();
+});
+
+$("#adCarMonthlyRate").on('keyup', function (eventOb) {
+    setCarButton();
+});
+
+$("#adCarFreeKmDay").on('keyup', function (eventOb) {
+    setCarButton();
+});
+
+$("#adCarFreeKmMonthly").on('keyup', function (eventOb) {
+    setCarButton();
+});
+
+$("#adCarCompleteKm").on('keyup', function (eventOb) {
+    setCarButton();
+});
+
+$("#adCarBrand").on('click', function (eventOb) {
+    setCarButton();
+});
+
+function setCarButton(){
+    if (formValidAdminCar() && isEmty()) {
         $("#btnAdminCarSave,#btnAdminCarUpdate").attr('disabled', false);
     } else {
         $("#btnAdminCarSave,#btnAdminCarUpdate").attr('disabled', true);
     }
-}*/
+}
+
+
 //End Admin Car Validation Section
 
 function clearCarFields() {
