@@ -83,4 +83,14 @@ public class BookingServiceImpl implements BookingService {
         return mapper.map(pendingList, new TypeToken<List<BookingDTO>>() {
         }.getType());
     }
+
+    @Override
+    public List<BookingDTO> getAllDriverBookingSchedule(String driverId) {
+        System.out.println("----------------->222222222222222");
+        System.out.println(driverId);
+        List<Booking> pendingList = bookingRepo.findByBookingToSchedule(driverId,"Candled");
+        System.out.println("33333");
+        return mapper.map(pendingList, new TypeToken<List<BookingDTO>>() {
+        }.getType());
+    }
 }

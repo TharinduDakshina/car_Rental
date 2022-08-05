@@ -2,13 +2,10 @@ $("#log").css("display", "block");
 $("#driver").css("display", "none");
 $("#customer").css("display", "none");
 
-var adminId;
-var adminUserName;
+
 $("#btn_Login").click(function () {
         let userName = $('#txtUserName').val();
         let password = $('#txtPassword').val();
-
-
 
             $.ajax({
                 url:"http://localhost:8080/BackEnd_war/driver?userName="+userName+"&password="+password,

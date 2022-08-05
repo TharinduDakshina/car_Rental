@@ -14,4 +14,5 @@ public interface BookingService {
     List<BookingDTO> getAllBooking();
     BookingDTO findLastBookingById();
     List<BookingDTO> getAllBookingStatusPending();
+    List<BookingDTO> getAllDriverBookingSchedule(String driverId);
 }

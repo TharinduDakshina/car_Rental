@@ -44,11 +44,11 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public AdminDTO searchAdminForLog(String username) {
-        Admin byUserName = adminRepo.findByUserName(username);
+        /*Admin byUserName = adminRepo.findByUserName(username);
         System.out.println("Search admin table");
-        System.out.println(byUserName);
-        if (byUserName!=null) {
-            return mapper.map(byUserName, AdminDTO.class);
+        System.out.println(byUserName);*/
+        if (adminRepo.findByUserName(username)!=null) {
+            return mapper.map(adminRepo.findByUserName(username), AdminDTO.class);
         }else{
             System.out.println("admin table not found");
             return null;

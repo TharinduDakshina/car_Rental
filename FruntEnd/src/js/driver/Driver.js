@@ -230,6 +230,9 @@ $('#btnDriverProfile').click(function () {
         'display': 'none'
     });
 });
+
+
+
 $('#btnDriverSchedule').click(function () {
     $('#driverProfile').css({
         'display': 'none'
@@ -237,4 +240,51 @@ $('#btnDriverSchedule').click(function () {
     $('#driverSchedule').css({
         'display': 'block'
     });
+
+    loadDriverSchedule(loginDriverId);
 });
+
+function loadDriverSchedule(loginDriverId) {
+
+
+    let customerContact;
+
+
+    $.ajax({
+        url:"http://localhost:8080/BackEnd_war/booking/driver/schedule/bookingCo/"+loginDriverId,
+        method:"GET",
+        success:function (res){
+            if (res.code == 200) {
+                let value=res.data;
+              for (k in value){
+                  let bookingId=value[k].bookingID;
+                  let customerContact=value[k].customer.contact;
+                  let pickDate=value[k].pickupDate;
+                  let returnDate=value[k].returnDate;
+                  let carId=value[k].car.carID;
+                  let carName=value[k].car.brand;
+                  let customerName=value[k].customer.name;
+                  let bookingDate=value[k].date;
+
+
+                  $('#tblDriverScheduleBody').append(`
+                    <tr><td>${bookingId}</td>
+                    <td>${customerName}</td>
+                    <td>${customerContact}</td>
+                    <td>${carId}</td>
+                    <td>${carName}</td>
+                    <td>${bookingDate}</td>
+                    <td>${pickDate}</td>
+                    <td>${returnDate}</td>
+                    
+                    </tr>`);
+              }
+            }
+        },
+        error:function (ob,textStatus,error){
+            console.log(ob);
+            console.log(textStatus);
+            console.log(error);
+        }
+    });
+}

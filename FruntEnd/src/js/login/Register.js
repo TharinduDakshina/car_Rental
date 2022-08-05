@@ -43,6 +43,8 @@ function saveCustomer() {
     console.log(genId);
 
 
+    console.log("111111111");
+
     if (selectType=="Driver"){
         $.ajax({
             url: "http://localhost:8080/BackEnd_war/driver",
@@ -71,7 +73,7 @@ function saveCustomer() {
                 alert(textStatus);
             }
         });
-    }else {
+    }else if(selectType=="Customer"){
         $.ajax({
             url: "http://localhost:8080/BackEnd_war/customer",
             method: "POST",
@@ -98,14 +100,15 @@ function saveCustomer() {
                 alert(textStatus);
             }
         });
-
+    }else {
+        alert("Please select the type..!");
     }
 
 
 }
 
 //Start Admin Save Section
-$('#button,#btn_Register').click(function () {
+$('#button').click(function () {
     //checkIfValid();
     saveCustomer();
 });

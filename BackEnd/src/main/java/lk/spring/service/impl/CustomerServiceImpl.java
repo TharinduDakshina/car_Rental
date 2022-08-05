@@ -62,9 +62,9 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public CustomerDTO searchCustomerForLog(String userName, String password) {
-        Customer byUserName = customerRepo.findByUserName(userName);
-        if (byUserName!=null) {
-            return mapper.map(byUserName,CustomerDTO.class);
+       // Customer byUserName = customerRepo.findByUserName(userName);
+        if (customerRepo.findByUserName(userName)!=null) {
+            return mapper.map(customerRepo.findByUserName(userName),CustomerDTO.class);
         }else return null;
     }
 

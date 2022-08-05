@@ -4,7 +4,6 @@ import lk.spring.dto.BookingDTO;
 import lk.spring.service.BookingService;
 import lk.spring.util.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -75,5 +74,11 @@ public class BookingController{
     @GetMapping(path = "{admin}/{order}/{status}")
     public ResponseUtil getAdminAccessBooking(@PathVariable String admin, @PathVariable String order, @PathVariable String status){
         return new ResponseUtil(200,"Ok",bookingService.getAllBookingStatusPending());
+    }
+
+    @GetMapping(path = "{driver}/{schedule}/{bookingCo}/{driverId}")
+    public ResponseUtil getDriverBookingSchedule(@PathVariable String driver, @PathVariable String schedule, @PathVariable String bookingCo, @PathVariable String driverId){
+        System.out.println("111");
+        return new ResponseUtil(200,"Ok",bookingService.getAllDriverBookingSchedule(driverId));
     }
 }
